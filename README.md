@@ -5,7 +5,7 @@ Parent-pom project is required. Url `https://github.com/svermaji/Core-Parent.git
 ## Author Information<br>
 * **Name:** Shailendra Verma
 * **Email:** shailendravermag@gmail.com
-* **Blogs:** `https://sv-technical.blogspot.com/`
+* **Blogs:** https://sv-technical.blogspot.com/
 
 ## Description<br>
 * This library is common for different projects.
