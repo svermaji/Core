@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 
 /**
- * Created by svg on 11-Oct-2017
+ * Utility static methods and constants.
  */
 public class Utils {
 
@@ -24,6 +24,12 @@ public class Utils {
     // Set of values that imply a false value.
     private static final String[] falseValues = {"N", "NO", "FALSE", "F"};
 
+    /**
+     * Escape html characters from `HtmlEsc` enum
+     *
+     * @param data string to escape
+     * @return escaped string
+     */
     public static String escape(String data) {
         for (HtmlEsc h : HtmlEsc.values()) {
             if (data.contains(h.getCh())) {
@@ -59,7 +65,7 @@ public class Utils {
 
 
     /**
-     * return true if param has non-null value
+     * Return true if param has non-null value
      *
      * @param item string to be checked
      * @return boolean status of operation
@@ -141,7 +147,7 @@ public class Utils {
     }
 
     /**
-     * returns true if char is numeric, else false
+     * Returns true if char is numeric, else false
      *
      * @param ch char to check
      * @return boolean status of operation
@@ -154,7 +160,7 @@ public class Utils {
     }
 
     /**
-     * returns true if char is alphabetic, else false
+     * Returns true if char is alphabetic, else false
      *
      * @param ch char to check
      * @return boolean status of operation
@@ -169,6 +175,13 @@ public class Utils {
     }
 
 
+    /**
+     * Returns only filename by removing extension
+     *
+     * @param file     name
+     * @param fileType extension
+     * @return chops off extension
+     */
     public static String getFileNameNoExtn(String file, String fileType) {
         if (!hasValue(file))
             return "";
@@ -177,6 +190,11 @@ public class Utils {
         return (file.endsWith(fileType)) ? file.substring(0, file.indexOf(fileType) - 1) : file;
     }
 
+    /**
+     * Sleep that handles exception
+     *
+     * @param millis milli seconds
+     */
     public static void sleep(long millis) {
         try {
             Thread.sleep(millis);
@@ -185,6 +203,12 @@ public class Utils {
         }
     }
 
+    /**
+     * Sleep that handles exception
+     *
+     * @param millis milli seconds
+     * @param logger to log
+     */
     public static void sleep(long millis, MyLogger logger) {
         try {
             Thread.sleep(millis);
@@ -193,6 +217,13 @@ public class Utils {
         }
     }
 
+    /**
+     * Returns string for a file size that could
+     * be in GB or MB or KB or in bytes.
+     *
+     * @param fs file size
+     * @return String
+     */
     public static String getFileSizeString(long fs) {
         long KB = 1024;
         float inKB = (float) fs / KB;
@@ -212,6 +243,12 @@ public class Utils {
         return String.format("%.2f", size);
     }
 
+    /**
+     * Returns enum names as String array
+     *
+     * @param e Enum class
+     * @return array
+     */
     public static String[] getConfigsAsArr(Class<? extends Enum<?>> e) {
         return Arrays.stream(e.getEnumConstants()).map(Enum::name).toArray(String[]::new);
     }

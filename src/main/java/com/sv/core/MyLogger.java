@@ -4,13 +4,19 @@ import java.io.*;
 import java.time.LocalDateTime;
 
 /**
- * Created by svg on 11-Oct-2017
+ * File Logger
  */
 public class MyLogger {
 
     private Writer logWriter = null;
     private static MyLogger logger = null;
 
+    /**
+     * Singleton instance with class name
+     *
+     * @param clazz Class object
+     * @return File logger instance
+     */
     public static MyLogger createLogger(Class<?> clazz) {
         String className = clazz.getSimpleName();
         char[] carr = className.toCharArray();
@@ -31,6 +37,12 @@ public class MyLogger {
         return createLogger(sb.toString());
     }
 
+    /**
+     * Singleton instance with class name
+     *
+     * @param logFilename name of file
+     * @return File logger instance
+     */
     public static MyLogger createLogger(String logFilename) {
         if (logger == null) {
             logger = new MyLogger();
@@ -46,6 +58,9 @@ public class MyLogger {
     private MyLogger() {
     }
 
+    /**
+     * Closes the logger
+     */
     public void dispose() {
         try {
             logWriter.close();
