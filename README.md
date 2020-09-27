@@ -1,5 +1,6 @@
 # Core
 Utility in Java act as Core
+Parent-pom project is required. Url `https://github.com/svermaji/Core-Parent.git` 
 
 ## Description<br>
 * This library is common for different projects.
