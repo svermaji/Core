@@ -46,6 +46,26 @@ public class DefaultConfigs {
      * @param name config name
      * @return config value
      */
+    public boolean getBooleanConfig(String name) {
+        return Boolean.parseBoolean(getConfig(name));
+    }
+
+    /**
+     * Return configuration from property file
+     *
+     * @param name config name
+     * @return config value
+     */
+    public int getIntConfig(String name) {
+        return Integer.parseInt(getConfig(name));
+    }
+
+    /**
+     * Return configuration from property file
+     *
+     * @param name config name
+     * @return config value
+     */
     public String getConfig(String name) {
         if (configs.containsKey(name))
             return configs.getProperty(name);
