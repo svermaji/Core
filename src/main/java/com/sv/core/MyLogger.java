@@ -11,8 +11,9 @@ public class MyLogger {
 
     private Writer logWriter = null;
     private static MyLogger logger = null;
-    private static boolean debug;
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private boolean debug;
+    private static DateTimeFormatter formatter =
+            DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss.SSS");
 
     /**
      * Singleton instance with class name
@@ -22,7 +23,6 @@ public class MyLogger {
      * @return File logger instance
      */
     public static MyLogger createLogger(Class<?> clazz, boolean debugEnabled) {
-        debug = debugEnabled;
         String className = clazz.getSimpleName();
         char[] carr = className.toCharArray();
         StringBuilder sb = new StringBuilder();
@@ -59,7 +59,6 @@ public class MyLogger {
      * @return File logger instance
      */
     public static MyLogger createLogger(String logFilename, boolean debugEnabled) {
-        debug = debugEnabled;
         if (logger == null) {
             logger = new MyLogger();
             try {
@@ -68,6 +67,7 @@ public class MyLogger {
                 e.printStackTrace();
             }
         }
+        logger.setDebug(debugEnabled);
         return logger;
     }
 
@@ -77,10 +77,10 @@ public class MyLogger {
     /**
      * Sets new debug.
      *
-     * @param debug New value of debug.
+     * @param debugEnabled New value of debug.
      */
-    public static void setDebug(boolean debug) {
-        debug = debug;
+    public void setDebug(boolean debugEnabled) {
+        this.debug = debugEnabled;
     }
 
     /**
@@ -88,7 +88,7 @@ public class MyLogger {
      *
      * @return Value of debug.
      */
-    public static boolean isDebug() {
+    public boolean isDebug() {
         return debug;
     }
 
