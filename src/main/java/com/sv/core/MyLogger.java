@@ -42,6 +42,7 @@ public class MyLogger {
         return createLogger(sb.toString(), debugEnabled);
     }
 
+
     public static MyLogger createLogger(Class<?> clazz) {
         return createLogger(clazz, false);
     }
@@ -71,6 +72,24 @@ public class MyLogger {
     }
 
     private MyLogger() {
+    }
+
+    /**
+     * Sets new debug.
+     *
+     * @param debug New value of debug.
+     */
+    public static void setDebug(boolean debug) {
+        debug = debug;
+    }
+
+    /**
+     * Gets debug.
+     *
+     * @return Value of debug.
+     */
+    public static boolean isDebug() {
+        return debug;
     }
 
     /**
@@ -142,5 +161,4 @@ public class MyLogger {
     private String getTime() {
         return "[" + LocalDateTime.now().format(formatter) + "]: ";
     }
-
 }
