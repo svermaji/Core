@@ -10,14 +10,17 @@ public class MyLogger {
 
     private Writer logWriter = null;
     private static MyLogger logger = null;
+    private static boolean debug;
 
     /**
      * Singleton instance with class name
      *
      * @param clazz Class object
+     * @param debugEnabled boolean if debug is enabled
      * @return File logger instance
      */
-    public static MyLogger createLogger(Class<?> clazz) {
+    public static MyLogger createLogger(Class<?> clazz, boolean debugEnabled) {
+        debug = debugEnabled;
         String className = clazz.getSimpleName();
         char[] carr = className.toCharArray();
         StringBuilder sb = new StringBuilder();
@@ -34,16 +37,26 @@ public class MyLogger {
             }
         }
         sb.append(".log");
-        return createLogger(sb.toString());
+        return createLogger(sb.toString(), debugEnabled);
+    }
+
+    public static MyLogger createLogger(Class<?> clazz) {
+        return createLogger(clazz, false);
+    }
+
+    public static MyLogger createLogger(String logFilename) {
+        return createLogger(logFilename, false);
     }
 
     /**
      * Singleton instance with class name
      *
      * @param logFilename name of file
+     * @param debugEnabled boolean if debug is enabled
      * @return File logger instance
      */
-    public static MyLogger createLogger(String logFilename) {
+    public static MyLogger createLogger(String logFilename, boolean debugEnabled) {
+        debug = debugEnabled;
         if (logger == null) {
             logger = new MyLogger();
             try {
@@ -66,6 +79,12 @@ public class MyLogger {
             logWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void debug(String message) {
+        if (debug) {
+            log("DEBUG: " + message);
         }
     }
 
