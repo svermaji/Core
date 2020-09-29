@@ -2,6 +2,7 @@ package com.sv.core;
 
 import java.io.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * File Logger
@@ -11,11 +12,12 @@ public class MyLogger {
     private Writer logWriter = null;
     private static MyLogger logger = null;
     private static boolean debug;
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     /**
      * Singleton instance with class name
      *
-     * @param clazz Class object
+     * @param clazz        Class object
      * @param debugEnabled boolean if debug is enabled
      * @return File logger instance
      */
@@ -51,7 +53,7 @@ public class MyLogger {
     /**
      * Singleton instance with class name
      *
-     * @param logFilename name of file
+     * @param logFilename  name of file
      * @param debugEnabled boolean if debug is enabled
      * @return File logger instance
      */
@@ -138,6 +140,7 @@ public class MyLogger {
     }
 
     private String getTime() {
-        return "[" + LocalDateTime.now() + "]: ";
+        return "[" + LocalDateTime.now().format(formatter) + "]: ";
     }
+
 }
