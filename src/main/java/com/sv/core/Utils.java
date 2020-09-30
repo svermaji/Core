@@ -39,7 +39,7 @@ public class Utils {
         return data;
     }
 
-    enum HtmlEsc {
+    public enum HtmlEsc {
         SP(" ", "&nbsp;"),
         LT("<", "&lt;"),
         GT(">", "&gt;"),
