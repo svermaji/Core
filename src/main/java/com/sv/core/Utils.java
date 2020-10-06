@@ -174,20 +174,37 @@ public class Utils {
         return ((int) ch <= z && (int) ch >= a) || (((int) ch <= Z && (int) ch >= A));
     }
 
+    /**
+     * Get file name from path
+     *
+     * @param url path
+     * @return only name
+     */
+    public static String getFileName(String url) {
+        if (!hasValue(url))
+            return "";
+        if (url.contains("/"))
+            return url.substring(url.lastIndexOf("/") + 1);
+        if (url.contains("\\"))
+            return url.substring(url.lastIndexOf("\\") + 1);
+
+        return url;
+    }
 
     /**
-     * Returns only filename by removing extension
+     * Removes file name extension
      *
-     * @param file     name
-     * @param fileType extension
-     * @return chops off extension
+     * @param filename path
+     * @return only name
      */
-    public static String getFileNameNoExtn(String file, String fileType) {
-        if (!hasValue(file))
+    public static String chopFileNameExtn(String filename) {
+        if (!hasValue(filename))
             return "";
-        if (!hasValue(fileType))
-            return file;
-        return (file.endsWith(fileType)) ? file.substring(0, file.indexOf(fileType) - 1) : file;
+
+        if (filename.contains("."))
+            return filename.substring(0, filename.lastIndexOf("."));
+
+        return filename;
     }
 
     /**
