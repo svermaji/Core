@@ -13,9 +13,11 @@ public class Utils {
     public static final String SPACE = " ";
     public static final String ELLIPSIS = "..";
     public static final String SLASH = "\\";
+    public static final String F_SLASH = "/";
     public static final String SEMI_COLON = ";";
     public static final String DOUBLE_SPACE = SPACE + SPACE;
     public static final String DASH = "-";
+    public static final String DOT = ".";
     public static final String SP_DASH_SP = SPACE + DASH + SPACE;
 
     // Set of values that imply a true value.
@@ -183,10 +185,10 @@ public class Utils {
     public static String getFileName(String url) {
         if (!hasValue(url))
             return "";
-        if (url.contains("/"))
-            return url.substring(url.lastIndexOf("/") + 1);
-        if (url.contains("\\"))
-            return url.substring(url.lastIndexOf("\\") + 1);
+        if (url.contains(F_SLASH))
+            return url.substring(url.lastIndexOf(F_SLASH) + 1);
+        if (url.contains(SLASH))
+            return url.substring(url.lastIndexOf(SLASH) + 1);
 
         return url;
     }
@@ -199,10 +201,10 @@ public class Utils {
      */
     public static String chopFileNameExtn(String filename) {
         if (!hasValue(filename))
-            return "";
+            return EMPTY;
 
-        if (filename.contains("."))
-            return filename.substring(0, filename.lastIndexOf("."));
+        if (filename.contains(DOT))
+            return filename.substring(0, filename.lastIndexOf(DOT));
 
         return filename;
     }
