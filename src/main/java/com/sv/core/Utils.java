@@ -22,6 +22,10 @@ public class Utils {
     public static final String SP_DASH_SP = SPACE + DASH + SPACE;
 
     // Set of values that imply a true value.
+    private static final Character[] SPECIAL_CHARS =
+            {'\\', ':', '/', ',', '-', '_', ' '};
+
+    // Set of values that imply a true value.
     private static final String[] trueValues = {"Y", "YES", "TRUE", "T"};
 
     // Set of values that imply a false value.
@@ -273,4 +277,24 @@ public class Utils {
         return Arrays.stream(e.getEnumConstants()).map(Enum::name).toArray(String[]::new);
     }
 
+    /**
+     * This method matches; in lowercase; given string from array of strings.
+     * If there is a match then returns the remaining sub string.
+     *
+     * @param s   to search
+     * @param arr of String
+     * @return sub string
+     */
+    public static String getMatchedLCSubStr(String s, String[] arr) {
+        String lc = s.toLowerCase();
+        return Arrays.stream(arr)
+                .filter(a -> a.toLowerCase().startsWith(lc))
+                .findFirst()
+                .map(a -> a.substring(s.length()))
+                .orElse("");
+    }
+
+    public static boolean isSpecialChar(char ch) {
+        return Arrays.asList(SPECIAL_CHARS).contains(ch);
+    }
 }
