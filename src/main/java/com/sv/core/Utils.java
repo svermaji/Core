@@ -301,11 +301,11 @@ public class Utils {
         return Arrays.asList(SPECIAL_CHARS).contains(ch);
     }
 
-    public String getTimeDiffInSec(long time) {
+    public static String getTimeDiffInSec(long time) {
         return "[" + TimeUnit.MILLISECONDS.toSeconds(getTimeDiff(time)) + " sec]";
     }
 
-    public long getTimeDiff(long time) {
+    public static long getTimeDiff(long time) {
         return System.currentTimeMillis() - time;
     }
 }
