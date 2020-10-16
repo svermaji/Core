@@ -9,6 +9,8 @@ import java.util.Arrays;
  */
 public class Utils {
 
+    public static final String FAILED = "Failed - ";
+    public static final String CANCELLED = "Cancelled - ";
     public static final String EMPTY = "";
     public static final String SPACE = " ";
     public static final String ELLIPSIS = "..";
