@@ -301,7 +301,7 @@ public class Utils {
         return Arrays.asList(SPECIAL_CHARS).contains(ch);
     }
 
-    public static String getTimeDiffInSec(long time) {
+    public static String getTimeDiffSecStr(long time) {
         return "[" + getTimeDiffSec(time) + " sec]";
     }
 
