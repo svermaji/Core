@@ -3,6 +3,7 @@ package com.sv.core;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Utility static methods and constants.
@@ -298,5 +299,13 @@ public class Utils {
 
     public static boolean isSpecialChar(char ch) {
         return Arrays.asList(SPECIAL_CHARS).contains(ch);
+    }
+
+    public String getTimeDiffInSec(long time) {
+        return "[" + TimeUnit.MILLISECONDS.toSeconds(getTimeDiff(time)) + " sec]";
+    }
+
+    public long getTimeDiff(long time) {
+        return System.currentTimeMillis() - time;
     }
 }
