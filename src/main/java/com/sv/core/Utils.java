@@ -302,7 +302,11 @@ public class Utils {
     }
 
     public static String getTimeDiffInSec(long time) {
-        return "[" + TimeUnit.MILLISECONDS.toSeconds(getTimeDiff(time)) + " sec]";
+        return "[" + getTimeDiffSec(time) + " sec]";
+    }
+
+    public static long getTimeDiffSec(long time) {
+        return TimeUnit.MILLISECONDS.toSeconds(getTimeDiff(time));
     }
 
     public static long getTimeDiff(long time) {
