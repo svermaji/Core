@@ -5,24 +5,12 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
+import static com.sv.core.Constants.*;
+
 /**
  * Utility static methods and constants.
  */
 public class Utils {
-
-    public static final String FAILED = "Failed - ";
-    public static final String CANCELLED = "Cancelled - ";
-    public static final String EMPTY = "";
-    public static final String SPACE = " ";
-    public static final String ELLIPSIS = "..";
-    public static final String SLASH = "\\";
-    public static final String F_SLASH = "/";
-    public static final String COMMA = ",";
-    public static final String SEMI_COLON = ";";
-    public static final String DOUBLE_SPACE = SPACE + SPACE;
-    public static final String DASH = "-";
-    public static final String DOT = ".";
-    public static final String SP_DASH_SP = SPACE + DASH + SPACE;
 
     // Set of values that imply a true value.
     private static final Character[] SPECIAL_CHARS =

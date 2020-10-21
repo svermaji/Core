@@ -15,6 +15,10 @@ public class MyLogger {
     private static DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss.SSSSSS");
 
+    public enum MsgType {
+        INFO, WARN, ERROR
+    }
+
     /**
      * Singleton instance with class name
      *
@@ -30,7 +34,7 @@ public class MyLogger {
         for (char c : carr) {
             if (Character.isUpperCase(c)) {
                 if (idx > 0) {
-                    sb.append(Utils.DASH);
+                    sb.append(Constants.DASH);
                 }
                 sb.append(Character.toLowerCase(c));
                 idx++;

@@ -69,7 +69,7 @@ public class DefaultConfigs {
     public String getConfig(String name) {
         if (configs.containsKey(name))
             return configs.getProperty(name);
-        return Utils.EMPTY;
+        return Constants.EMPTY;
     }
 
     private void readConfig() {
