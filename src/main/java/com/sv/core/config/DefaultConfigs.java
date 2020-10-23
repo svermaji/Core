@@ -1,4 +1,7 @@
-package com.sv.core;
+package com.sv.core.config;
+
+import com.sv.core.Constants;
+import com.sv.core.logger.MyLogger;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

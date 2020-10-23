@@ -1,4 +1,7 @@
-package com.sv.core;
+package com.sv.core.logger;
+
+import com.sv.core.Constants;
+import com.sv.core.Utils;
 
 import java.io.*;
 import java.time.LocalDateTime;

@@ -1,5 +1,7 @@
 package com.sv.core;
 
+import com.sv.core.logger.MyLogger;
+
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -203,6 +205,14 @@ public class Utils {
             return filename.substring(0, filename.lastIndexOf(DOT));
 
         return filename;
+    }
+
+    public static void sleep1Sec() {
+        sleep(TimeUnit.SECONDS.toMillis(ONE));
+    }
+
+    public static void sleep500Milli() {
+        sleep(500);
     }
 
     /**
