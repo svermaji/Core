@@ -310,4 +310,8 @@ public class Utils {
     public static long getTimeDiff(long time) {
         return System.currentTimeMillis() - time;
     }
+
+    public static String applyBraces(String s) {
+        return "[" + s + "]";
+    }
 }
