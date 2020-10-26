@@ -311,6 +311,14 @@ public class Utils {
         return System.currentTimeMillis() - time;
     }
 
+    public static String applyBraces(boolean s) {
+        return applyBraces(s+"");
+    }
+
+    public static String applyBraces(int s) {
+        return applyBraces(s+"");
+    }
+
     public static String applyBraces(String s) {
         return "[" + s + "]";
     }
