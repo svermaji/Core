@@ -315,7 +315,7 @@ public class Utils {
         return applyBraces(s+"");
     }
 
-    public static String applyBraces(int s) {
+    public static String applyBraces(long s) {
         return applyBraces(s+"");
     }
 
