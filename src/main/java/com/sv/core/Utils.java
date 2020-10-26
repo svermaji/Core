@@ -21,7 +21,7 @@ public class Utils {
 
     // Set of values that imply a true value.
     private static final Character[] WHOLE_WORD_CHARS =
-            {':', ',', ' ', '-', '_', ';', '(', ')', '{', '}'};
+            {':', ',', ' ', '.', '-', '_', ';', '(', ')', '{', '}'};
 
     // Set of values that imply a true value.
     private static final String[] trueValues = {"Y", "YES", "TRUE", "T"};
