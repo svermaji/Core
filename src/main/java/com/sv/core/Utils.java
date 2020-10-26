@@ -6,6 +6,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 import static com.sv.core.Constants.*;
 
@@ -17,6 +18,10 @@ public class Utils {
     // Set of values that imply a true value.
     private static final Character[] SPECIAL_CHARS =
             {'\\', ':', '/', ',', '-', '_', ' '};
+
+    // Set of values that imply a true value.
+    private static final Character[] WHOLE_WORD_CHARS =
+            {':', ',', ' ', '-', '_', ';', '(', ')', '{', '}'};
 
     // Set of values that imply a true value.
     private static final String[] trueValues = {"Y", "YES", "TRUE", "T"};
@@ -296,7 +301,15 @@ public class Utils {
     }
 
     public static boolean isSpecialChar(char ch) {
-        return Arrays.asList(SPECIAL_CHARS).contains(ch);
+        return isInCharArr(SPECIAL_CHARS, ch);
+    }
+
+    public static boolean isWholeWordChar(char ch) {
+        return isInCharArr(WHOLE_WORD_CHARS, ch);
+    }
+
+    public static boolean isInCharArr(Character[] arr, char ch) {
+        return Arrays.stream(arr).anyMatch(a -> a == ch);
     }
 
     public static String getTimeDiffSecStr(long time) {
@@ -312,11 +325,11 @@ public class Utils {
     }
 
     public static String applyBraces(boolean s) {
-        return applyBraces(s+"");
+        return applyBraces(s + "");
     }
 
     public static String applyBraces(long s) {
-        return applyBraces(s+"");
+        return applyBraces(s + "");
     }
 
     public static String applyBraces(String s) {
