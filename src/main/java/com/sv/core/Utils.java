@@ -349,7 +349,11 @@ public class Utils {
 
         StringBuilder ans = new StringBuilder();
         for (char c : arr) {
-            ans.append(isUpper(c) ? Character.toString(c).toLowerCase() : Character.toString(c).toUpperCase());
+            if (isAlphabet(c)) {
+                ans.append(isUpper(c) ? Character.toString(c).toLowerCase() : Character.toString(c).toUpperCase());
+            } else {
+                ans.append(c);
+            }
         }
         return ans.toString();
     }
@@ -359,12 +363,17 @@ public class Utils {
         for (String ch : titleCaseChars) {
             String[] arr = str.split(ch);
             StringBuilder ans = new StringBuilder();
-            for (String a : arr) {
-                if (hasValue(a)) {
-                    ans.append(Character.toString(a.charAt(0)).toUpperCase()).append(a.substring(1));
+            if (arr.length == 1) {
+                str = arr[0];
+            } else {
+                for (String a : arr) {
+                    if (hasValue(a)) {
+                        ans.append(Character.toString(a.charAt(0)).toUpperCase()).append(a.substring(1));
+                    }
+                    ans.append(ch);
                 }
+                str = ans.toString();
             }
-            str = ans.toString();
         }
         return str;
     }
