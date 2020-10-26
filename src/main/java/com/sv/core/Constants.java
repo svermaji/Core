@@ -33,13 +33,19 @@ public final class Constants {
     public static final String SP_DASH_SP = SPACE + DASH + SPACE;
 
     // Set of values that imply a true value.
-    private static final Character[] SPECIAL_CHARS =
+    public static final Character[] SPECIAL_CHARS =
             {'\\', ':', '/', ',', '-', '_', ' '};
 
     // Set of values that imply a true value.
-    private static final String[] trueValues = {"Y", "YES", "TRUE", "T"};
+    public static final String[] trueValues = {"Y", "YES", "TRUE", "T"};
 
     // Set of values that imply a false value.
-    private static final String[] falseValues = {"N", "NO", "FALSE", "F"};
+    public static final String[] falseValues = {"N", "NO", "FALSE", "F"};
+
+    // Set of values that imply a true value.
+    public static final Character[] WHOLE_WORD_CHARS =
+            {':', ',', ' ', '.', '-', '_', ';', '(', ')', '{', '}', '<', '>', '[', ']'};
+
+    public enum CaseType {UPPER, LOWER, TITLE, INVERT}
 
 }

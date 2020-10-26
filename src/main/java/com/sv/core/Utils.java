@@ -6,7 +6,6 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
 import static com.sv.core.Constants.*;
 
@@ -14,20 +13,6 @@ import static com.sv.core.Constants.*;
  * Utility static methods and constants.
  */
 public class Utils {
-
-    // Set of values that imply a true value.
-    private static final Character[] SPECIAL_CHARS =
-            {'\\', ':', '/', ',', '-', '_', ' '};
-
-    // Set of values that imply a true value.
-    private static final Character[] WHOLE_WORD_CHARS =
-            {':', ',', ' ', '.', '-', '_', ';', '(', ')', '{', '}', '<', '>', '[', ']'};
-
-    // Set of values that imply a true value.
-    private static final String[] trueValues = {"Y", "YES", "TRUE", "T"};
-
-    // Set of values that imply a false value.
-    private static final String[] falseValues = {"N", "NO", "FALSE", "F"};
 
     /**
      * Escape html characters from `HtmlEsc` enum
@@ -171,12 +156,21 @@ public class Utils {
      * @return boolean status of operation
      */
     public static boolean isAlphabet(char ch) {
-        int a = 'a';
+        return isUpper(ch) || isLower(ch);
+    }
+
+    public static boolean isUpper(char ch) {
         int A = 'A';
-        int z = 'z';
         int Z = 'Z';
 
-        return ((int) ch <= z && (int) ch >= a) || (((int) ch <= Z && (int) ch >= A));
+        return (int) ch <= Z && (int) ch >= A;
+    }
+
+    public static boolean isLower(char ch) {
+        int a = 'a';
+        int z = 'z';
+
+        return (int) ch <= z && (int) ch >= a;
     }
 
     /**
@@ -334,5 +328,44 @@ public class Utils {
 
     public static String applyBraces(String s) {
         return "[" + s + "]";
+    }
+
+    public static String changeCase(CaseType type, String str) {
+        switch (type) {
+            case LOWER:
+                return str.toLowerCase();
+            case UPPER:
+                return str.toUpperCase();
+            case TITLE:
+                return convertToTitleCase(str);
+            case INVERT:
+                return invertCase(str);
+        }
+        return str;
+    }
+
+    public static String invertCase(String str) {
+        char[] arr = str.toCharArray();
+
+        StringBuilder ans = new StringBuilder();
+        for (char c : arr) {
+            ans.append(isUpper(c) ? Character.toString(c).toLowerCase() : Character.toString(c).toUpperCase());
+        }
+        return ans.toString();
+    }
+
+    public static String convertToTitleCase(String str) {
+        String[] titleCaseChars = new String[]{"_", " ", "-"};
+        for (String ch : titleCaseChars) {
+            String[] arr = str.split(ch);
+            StringBuilder ans = new StringBuilder();
+            for (String a : arr) {
+                if (hasValue(a)) {
+                    ans.append(Character.toString(a.charAt(0)).toUpperCase()).append(a.substring(1));
+                }
+            }
+            str = ans.toString();
+        }
+        return str;
     }
 }
