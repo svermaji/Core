@@ -42,10 +42,6 @@ public final class Constants {
     // Set of values that imply a false value.
     public static final String[] falseValues = {"N", "NO", "FALSE", "F"};
 
-    // Set of values that imply a true value.
-    public static final Character[] WHOLE_WORD_CHARS =
-            {':', ',', ' ', '.', '-', '_', ';', '(', ')', '{', '}', '<', '>', '[', ']'};
-
     public enum CaseType {UPPER, LOWER, TITLE, INVERT}
 
 }

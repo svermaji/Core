@@ -299,7 +299,7 @@ public class Utils {
     }
 
     public static boolean isWholeWordChar(char ch) {
-        return isInCharArr(WHOLE_WORD_CHARS, ch);
+        return !isAlphabet(ch) && !isNumeric(ch);
     }
 
     public static boolean isInCharArr(Character[] arr, char ch) {
