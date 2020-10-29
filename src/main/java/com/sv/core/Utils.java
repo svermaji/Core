@@ -365,6 +365,9 @@ public class Utils {
             StringBuilder ans = new StringBuilder();
             if (arr.length == 1) {
                 str = arr[0];
+                if (hasValue(str)) {
+                    str = Character.toString(str.charAt(0)).toUpperCase() + str.substring(1);
+                }
             } else {
                 for (String a : arr) {
                     if (hasValue(a)) {
