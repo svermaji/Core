@@ -318,15 +318,15 @@ public class Utils {
         return System.currentTimeMillis() - time;
     }
 
-    public static String applyBraces(boolean s) {
-        return applyBraces(s + "");
+    public static String addBraces(boolean s) {
+        return addBraces(s + "");
     }
 
-    public static String applyBraces(long s) {
-        return applyBraces(s + "");
+    public static String addBraces(long s) {
+        return addBraces(s + "");
     }
 
-    public static String applyBraces(String s) {
+    public static String addBraces(String s) {
         return "[" + s + "]";
     }
 
