@@ -2,9 +2,11 @@ package com.sv.core;
 
 import com.sv.core.logger.MyLogger;
 
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.sv.core.Constants.*;
@@ -379,5 +381,40 @@ public class Utils {
             }
         }
         return str;
+    }
+
+    public static Object callMethod(Object obj, String name, Object[] args, MyLogger logger) {
+
+        String argsDtl = "No arg";
+        Class<?>[] clz = new Class[0];
+        if (args != null) {
+            clz = new Class[args.length];
+            StringBuilder sb = new StringBuilder();
+            sb.append(Arrays.asList(args).toString());
+            sb.append(", Types: {");
+            int x = 0;
+            for (Object o : args) {
+                clz[x] = o.getClass();
+                sb.append(clz[x].getName()).append(", ");
+                x++;
+            }
+            sb.append("}");
+            argsDtl = sb.toString();
+        }
+
+        logger.debug("Calling method " + addBraces(name)
+                + " on class " + addBraces(obj.getClass().getSimpleName())
+                + " args " + argsDtl
+        );
+        try {
+            if (args == null) {
+                return obj.getClass().getDeclaredMethod(name).invoke(obj);
+            }
+            return obj.getClass().getDeclaredMethod(name, clz).invoke(obj, args);
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            logger.error("Error in calling method: " + name + " on class "
+                    + obj.getClass().getSimpleName(), e);
+        }
+        return null;
     }
 }

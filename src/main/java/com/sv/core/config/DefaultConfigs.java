@@ -1,12 +1,12 @@
 package com.sv.core.config;
 
 import com.sv.core.Constants;
+import com.sv.core.Utils;
 import com.sv.core.logger.MyLogger;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -22,7 +22,7 @@ public class DefaultConfigs {
 
     String propFileName = "./conf.config";
     private final Properties configs = new Properties();
-    private MyLogger logger;
+    private final MyLogger logger;
 
     /**
      * Constructor with logger and string array
@@ -101,11 +101,7 @@ public class DefaultConfigs {
         logger.log("Saving properties at " + propUrl.getPath());
         configs.clear();
         for (String cfg : config) {
-            try {
-                configs.put(cfg, obj.getClass().getDeclaredMethod("get" + cfg).invoke(obj));
-            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                logger.log("Error in calling method: get " + cfg);
-            }
+            configs.put(cfg, Utils.callMethod(obj, "get" + cfg, null, logger));
         }
         logger.log("Config is " + configs);
         try {
