@@ -15,6 +15,7 @@ public final class Constants {
 
     public static final int ONE = 1;
     public static final int TEN = 10;
+    public static final long SEC_1 = TimeUnit.SECONDS.toMillis(ONE);
     public static final long MIN_1 = TimeUnit.MINUTES.toMillis(ONE);
     public static final long MIN_10 = MIN_1 * TEN;
 
