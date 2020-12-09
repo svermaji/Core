@@ -5,11 +5,17 @@ import com.sv.core.logger.MyLogger;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.sv.core.Constants.*;
+import static java.time.format.DateTimeFormatter.ISO_LOCAL_TIME;
 
 /**
  * Utility static methods and constants.
@@ -318,6 +324,19 @@ public class Utils {
 
     public static long getTimeDiff(long time) {
         return System.currentTimeMillis() - time;
+    }
+
+    public static String getTimeNoSec() {
+        return getTime(false);
+    }
+
+    public static String getTime(boolean addSec) {
+        LocalTime date = LocalTime.now();
+        String format = "h:mma";
+        if (addSec) {
+            format = "h:mm:sa";
+        }
+        return date.format(DateTimeFormatter.ofPattern(format));
     }
 
     public static String addBraces(boolean s) {
