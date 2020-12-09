@@ -5,17 +5,12 @@ import com.sv.core.logger.MyLogger;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.sv.core.Constants.*;
-import static java.time.format.DateTimeFormatter.ISO_LOCAL_TIME;
 
 /**
  * Utility static methods and constants.
