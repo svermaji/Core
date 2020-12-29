@@ -115,8 +115,4 @@ public class DefaultConfigs {
         }
     }
 
-    public void saveAndReloadConfig(Object obj) {
-        saveConfig(obj);
-        readConfig();
-    }
 }
