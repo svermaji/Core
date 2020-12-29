@@ -63,6 +63,10 @@ public class DefaultConfigs {
         return Integer.parseInt(getConfig(name));
     }
 
+    public long getLongConfig(String name) {
+        return Long.parseLong(getConfig(name));
+    }
+
     /**
      * Return configuration from property file
      *
