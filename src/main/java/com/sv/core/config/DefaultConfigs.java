@@ -114,4 +114,9 @@ public class DefaultConfigs {
             logger.log("Error in saving properties.");
         }
     }
+
+    public void saveAndReloadConfig(Object obj) {
+        saveConfig(obj);
+        readConfig();
+    }
 }
