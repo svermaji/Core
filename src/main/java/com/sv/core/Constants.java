@@ -27,6 +27,7 @@ public final class Constants {
     public static final String SLASH = "\\";
     public static final String F_SLASH = "/";
     public static final String COMMA = ",";
+    public static final String COLON = ":";
     public static final String SEMI_COLON = ";";
     public static final String DOUBLE_SPACE = SPACE + SPACE;
     public static final String DASH = "-";
