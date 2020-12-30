@@ -313,6 +313,10 @@ public class Utils {
         return "[" + getTimeDiffSec(time) + " sec]";
     }
 
+    public static long getTimeDiffMin(long time) {
+        return TimeUnit.MILLISECONDS.toMinutes(getTimeDiff(time));
+    }
+
     public static long getTimeDiffSec(long time) {
         return TimeUnit.MILLISECONDS.toSeconds(getTimeDiff(time));
     }
