@@ -2,6 +2,7 @@ package com.sv.core;
 
 import com.sv.core.logger.MyLogger;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -319,6 +320,15 @@ public class Utils {
 
     public static long getTimeDiffMin(long time) {
         return TimeUnit.MILLISECONDS.toMinutes(getTimeDiff(time));
+    }
+
+    public static String runCmd(String cmd) {
+        try {
+            Runtime.getRuntime().exec(cmd);
+        } catch (IOException e) {
+            return e.getMessage();
+        }
+        return EMPTY;
     }
 
     public static long getTimeDiffSec(long time) {
