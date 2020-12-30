@@ -313,6 +313,10 @@ public class Utils {
         return "[" + getTimeDiffSec(time) + " sec]";
     }
 
+    public static long getNowMillis() {
+        return System.currentTimeMillis();
+    }
+
     public static long getTimeDiffMin(long time) {
         return TimeUnit.MILLISECONDS.toMinutes(getTimeDiff(time));
     }
@@ -322,7 +326,7 @@ public class Utils {
     }
 
     public static long getTimeDiff(long time) {
-        return System.currentTimeMillis() - time;
+        return getNowMillis() - time;
     }
 
     public static String getTimeNoSec() {
