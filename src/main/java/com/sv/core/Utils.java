@@ -322,6 +322,12 @@ public class Utils {
         return TimeUnit.MILLISECONDS.toMinutes(getTimeDiff(time));
     }
 
+    /**
+     * This method will execute command passed
+     *
+     * @param cmd command to run
+     * @return exception message in case of error else empty string
+     */
     public static String runCmd(String cmd) {
         try {
             Runtime.getRuntime().exec(cmd);
