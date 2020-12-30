@@ -337,6 +337,23 @@ public class Utils {
         return EMPTY;
     }
 
+    /**
+     * This method will execute command passed
+     *
+     * @param cmd command to run
+     * @param logger MyLogger object to print error details
+     * @return exception message in case of error else empty string
+     */
+    public static String runCmd(String cmd, MyLogger logger) {
+        try {
+            Runtime.getRuntime().exec(cmd);
+        } catch (IOException e) {
+            logger.error(e);
+            return e.getMessage();
+        }
+        return EMPTY;
+    }
+
     public static long getTimeDiffSec(long time) {
         return TimeUnit.MILLISECONDS.toSeconds(getTimeDiff(time));
     }
