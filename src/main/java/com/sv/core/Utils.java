@@ -329,26 +329,26 @@ public class Utils {
      * @return exception message in case of error else empty string
      */
     public static String runCmd(String cmd) {
-        try {
-            Runtime.getRuntime().exec(cmd);
-        } catch (IOException e) {
-            return e.getMessage();
-        }
-        return EMPTY;
+        return runCmd(cmd, null);
     }
 
     /**
      * This method will execute command passed
      *
-     * @param cmd command to run
+     * @param cmd    command to run
      * @param logger MyLogger object to print error details
      * @return exception message in case of error else empty string
      */
     public static String runCmd(String cmd, MyLogger logger) {
         try {
+            if (logger != null) {
+                logger.log("Running command " + addBraces(cmd));
+            }
             Runtime.getRuntime().exec(cmd);
         } catch (IOException e) {
-            logger.error(e);
+            if (logger != null) {
+                logger.error(e);
+            }
             return e.getMessage();
         }
         return EMPTY;
