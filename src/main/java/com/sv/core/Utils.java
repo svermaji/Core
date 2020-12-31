@@ -1,5 +1,6 @@
 package com.sv.core;
 
+import com.sv.core.exception.AppException;
 import com.sv.core.logger.MyLogger;
 
 import java.io.IOException;
@@ -341,17 +342,29 @@ public class Utils {
      */
     public static String runCmd(String cmd, MyLogger logger) {
         try {
-            if (logger != null) {
-                logger.log("Running command " + addBraces(cmd));
-            }
-            Runtime.getRuntime().exec(cmd);
+            runProcess(cmd, logger);
+        } catch (AppException e) {
+            return e.getMessage();
+        }
+        return EMPTY;
+    }
+
+    public static Process runProcess(String cmd) throws AppException {
+        return runProcess(cmd, null);
+    }
+
+    public static Process runProcess(String cmd, MyLogger logger) throws AppException {
+        if (logger != null) {
+            logger.log("Running command " + addBraces(cmd));
+        }
+        try {
+            return Runtime.getRuntime().exec(cmd);
         } catch (IOException e) {
             if (logger != null) {
                 logger.error(e);
             }
-            return e.getMessage();
+            throw new AppException(e.getMessage());
         }
-        return EMPTY;
     }
 
     public static long getTimeDiffSec(long time) {
