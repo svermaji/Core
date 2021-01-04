@@ -5,6 +5,8 @@ import com.sv.core.logger.MyLogger;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
@@ -13,6 +15,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static com.sv.core.Constants.*;
@@ -384,6 +387,7 @@ public class Utils {
 
     /**
      * Returns local date time in format <pre>dd-MM-yyyy'T'HH:mm:ss</pre>
+     *
      * @return date time
      */
     public static String getFormattedDate() {
@@ -397,6 +401,32 @@ public class Utils {
         Date date = new Date(dt);
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
                 .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy h:mm:ssa"));
+    }
+
+    public static String getHostname(MyLogger logger) {
+        String env;
+        try {
+            return InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException e) {
+            env = "";
+            logger.warn("Unable to get host name, trying environment variable");
+        }
+
+        if (!hasValue(env)) {
+            Map<String, String> envs = System.getenv();
+            if (envs.containsKey("COMPUTERNAME")) {
+                return envs.get("COMPUTERNAME");
+            } else if (envs.containsKey("HOSTNAME")) {
+                return envs.get("HOSTNAME");
+            }
+
+            if (!hasValue(env)) {
+                logger.warn("Unable to get host name from environment");
+                env = "Unknown";
+            }
+        }
+
+        return env;
     }
 
     public static String getTime(boolean addSec) {
