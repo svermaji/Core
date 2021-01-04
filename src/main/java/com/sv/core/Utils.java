@@ -9,8 +9,10 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import static com.sv.core.Constants.*;
@@ -384,9 +386,17 @@ public class Utils {
      * Returns local date time in format <pre>dd-MM-yyyy'T'HH:mm:ss</pre>
      * @return date time
      */
-    public static String getLocalDate() {
+    public static String getFormattedDate() {
         LocalDateTime date = LocalDateTime.now();
-        return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss"));
+        return getFormattedDate(
+                Date.from(date.atZone(ZoneId.systemDefault()).toInstant()).getTime()
+        );
+    }
+
+    public static String getFormattedDate(long dt) {
+        Date date = new Date(dt);
+        return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
+                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss"));
     }
 
     public static String getTime(boolean addSec) {
