@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -379,13 +380,22 @@ public class Utils {
         return getTime(false);
     }
 
+    /**
+     * Returns local date time in format <pre>dd-MM-yyyy'T'HH:mm:ss</pre>
+     * @return date time
+     */
+    public static String getLocalDate() {
+        LocalDateTime date = LocalDateTime.now();
+        return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss"));
+    }
+
     public static String getTime(boolean addSec) {
-        LocalTime date = LocalTime.now();
+        LocalTime time = LocalTime.now();
         String format = "h:mma";
         if (addSec) {
             format = "h:mm:sa";
         }
-        return date.format(DateTimeFormatter.ofPattern(format));
+        return time.format(DateTimeFormatter.ofPattern(format));
     }
 
     public static String addBraces(boolean s) {
