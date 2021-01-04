@@ -396,7 +396,7 @@ public class Utils {
     public static String getFormattedDate(long dt) {
         Date date = new Date(dt);
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
-                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss"));
+                .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy h:mm:ssa"));
     }
 
     public static String getTime(boolean addSec) {
