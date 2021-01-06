@@ -3,7 +3,9 @@ package com.sv.core;
 import com.sv.core.exception.AppException;
 import com.sv.core.logger.MyLogger;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -348,10 +350,48 @@ public class Utils {
      */
     public static String runCmd(String cmd, MyLogger logger) {
         try {
-            runProcess(cmd, logger);
+            Process process = runProcess(cmd, logger);
+            if (logger != null) {
+                logger.log("Output " + getProcessOutput(process, logger));
+            }
         } catch (AppException e) {
             return e.getMessage();
         }
+        return EMPTY;
+    }
+
+    private static String getProcessOutput(Process process, MyLogger logger) {
+        try (BufferedReader reader =
+                     new BufferedReader(new InputStreamReader(process.getInputStream()));
+             BufferedReader stdError = new BufferedReader(new
+                     InputStreamReader(process.getErrorStream()))) {
+
+            String line;
+            StringBuilder sb = new StringBuilder();
+            do {
+                line = reader.readLine();
+                if (Utils.hasValue(line)) {
+                    sb.append(line);
+                }
+            } while (line != null);
+
+            if (!Utils.hasValue(sb.toString())) {
+                sb = new StringBuilder();
+                logger.warn("No data from process. Checking error stream.");
+                do {
+                    line = stdError.readLine();
+                    if (Utils.hasValue(line)) {
+                        sb.append(line);
+                    }
+                } while (line != null);
+            }
+
+            return sb.toString();
+
+        } catch (IOException e) {
+            logger.error(e);
+        }
+
         return EMPTY;
     }
 
