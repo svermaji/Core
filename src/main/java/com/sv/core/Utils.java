@@ -351,9 +351,9 @@ public class Utils {
     public static String runCmd(String cmd, MyLogger logger) {
         try {
             Process process = runProcess(cmd, logger);
-            if (logger != null) {
+            /*if (logger != null) {
                 logger.log("Output " + getProcessOutput(process, logger));
-            }
+            }*/
         } catch (AppException e) {
             return e.getMessage();
         }
