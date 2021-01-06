@@ -368,20 +368,29 @@ public class Utils {
 
             String line;
             StringBuilder sb = new StringBuilder();
+            // will wait for only 1 sec for the output to release stream
+            long time = Utils.getNowMillis();
             do {
                 line = reader.readLine();
                 if (Utils.hasValue(line)) {
                     sb.append(line);
                 }
+                if (Utils.getTimeDiffSec(time) > 1) {
+                    break;
+                }
             } while (line != null);
 
             if (!Utils.hasValue(sb.toString())) {
+                time = Utils.getNowMillis();
                 sb = new StringBuilder();
                 logger.warn("No data from process. Checking error stream.");
                 do {
                     line = stdError.readLine();
                     if (Utils.hasValue(line)) {
                         sb.append(line);
+                    }
+                    if (Utils.getTimeDiffSec(time) > 1) {
+                        break;
                     }
                 } while (line != null);
             }
