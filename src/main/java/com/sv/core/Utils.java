@@ -360,7 +360,18 @@ public class Utils {
         return EMPTY;
     }
 
-    private static String getProcessOutput(Process process, MyLogger logger) {
+    public static void logProcessOutput(Process process, MyLogger logger) {
+        String data = getProcessOutput(process, logger);
+        if (logger != null) {
+            if (Utils.hasValue(data)) {
+                logger.log(data);
+            } else {
+                logger.log("No process output");
+            }
+        }
+    }
+
+    public static String getProcessOutput(Process process, MyLogger logger) {
         try (BufferedReader reader =
                      new BufferedReader(new InputStreamReader(process.getInputStream()));
              BufferedReader stdError = new BufferedReader(new
@@ -368,20 +379,14 @@ public class Utils {
 
             String line;
             StringBuilder sb = new StringBuilder();
-            // will wait for only 1 sec for the output to release stream
-            long time = Utils.getNowMillis();
             do {
                 line = reader.readLine();
                 if (Utils.hasValue(line)) {
                     sb.append(line);
                 }
-                if (Utils.getTimeDiffSec(time) > 1) {
-                    break;
-                }
             } while (line != null);
 
             if (!Utils.hasValue(sb.toString())) {
-                time = Utils.getNowMillis();
                 sb = new StringBuilder();
                 logger.warn("No data from process. Checking error stream.");
                 do {
@@ -389,14 +394,10 @@ public class Utils {
                     if (Utils.hasValue(line)) {
                         sb.append(line);
                     }
-                    if (Utils.getTimeDiffSec(time) > 1) {
-                        break;
-                    }
                 } while (line != null);
             }
 
             return sb.toString();
-
         } catch (IOException e) {
             logger.error(e);
         }
