@@ -16,7 +16,7 @@ public class MyLogger {
     private static MyLogger logger = null;
     private boolean debug;
     private static DateTimeFormatter formatter =
-            DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm:ss.SSSSSS");
+            DateTimeFormatter.ofPattern("dd.MMM.yyyy'T'HH:mm:ss.SSSSSS");
 
     public enum MsgType {
         INFO, WARN, ERROR
