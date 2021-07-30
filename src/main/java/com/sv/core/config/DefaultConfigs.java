@@ -105,7 +105,11 @@ public class DefaultConfigs {
         logger.log("Saving properties at " + propUrl.getPath());
         configs.clear();
         for (String cfg : config) {
-            configs.put(cfg, Utils.callMethod(obj, "get" + cfg, null, logger));
+            try {
+                configs.put(cfg, Utils.callMethod(obj, "get" + cfg, null, logger));
+            } catch (NullPointerException e) {
+                logger.error("Unable to save config for [" + cfg + "].  Please check if method [get" + cfg + "] exists.");
+            }
         }
         logger.log("Config is " + configs);
         try {
