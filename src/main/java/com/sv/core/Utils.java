@@ -10,14 +10,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static com.sv.core.Constants.*;
@@ -410,17 +410,32 @@ public class Utils {
     }
 
     public static Process runProcess(String cmd, MyLogger logger) throws AppException {
+        return runProcess(new String[]{cmd}, logger);
+    }
+
+    public static Process runProcess(String[] cmds, MyLogger logger) throws AppException {
         if (logger != null) {
-            logger.log("Running command " + addBraces(cmd));
+            logger.log("Running command " + Arrays.asList(cmds));
         }
         try {
-            return Runtime.getRuntime().exec(cmd);
+            return Runtime.getRuntime().exec(cmds);
         } catch (IOException e) {
             if (logger != null) {
                 logger.error(e);
             }
             throw new AppException(e.getMessage());
         }
+    }
+
+    public static List<String> readFile(String path, MyLogger logger) {
+        try {
+            return Files.readAllLines(Paths.get(path));
+        } catch (IOException e) {
+            if (logger!=null) {
+                logger.error(e.getMessage(), e);
+            }
+        }
+        return new ArrayList<>();
     }
 
     public static long getTimeDiffSec(long time) {
