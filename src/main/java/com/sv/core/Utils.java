@@ -3,9 +3,7 @@ package com.sv.core;
 import com.sv.core.exception.AppException;
 import com.sv.core.logger.MyLogger;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -372,10 +370,19 @@ public class Utils {
     }
 
     public static String getProcessOutput(Process process, MyLogger logger) {
-        try (BufferedReader reader =
-                     new BufferedReader(new InputStreamReader(process.getInputStream()));
-             BufferedReader stdError = new BufferedReader(new
-                     InputStreamReader(process.getErrorStream()))) {
+
+        String data = getStreamOutput(process.getInputStream(), logger);
+        if (!Utils.hasValue(data)) {
+            logger.warn("No data from process. Checking error stream.");
+            data = getStreamOutput(process.getErrorStream(), logger);
+        }
+
+        return data;
+    }
+
+    public static String getStreamOutput(InputStream stream, MyLogger logger) {
+        try (BufferedReader reader = new BufferedReader(new
+                InputStreamReader(stream))) {
 
             String line;
             StringBuilder sb = new StringBuilder();
@@ -385,17 +392,6 @@ public class Utils {
                     sb.append(line);
                 }
             } while (line != null);
-
-            if (!Utils.hasValue(sb.toString())) {
-                sb = new StringBuilder();
-                logger.warn("No data from process. Checking error stream.");
-                do {
-                    line = stdError.readLine();
-                    if (Utils.hasValue(line)) {
-                        sb.append(line);
-                    }
-                } while (line != null);
-            }
 
             return sb.toString();
         } catch (IOException e) {
@@ -414,6 +410,7 @@ public class Utils {
     }
 
     public static Process runProcess(String[] cmds, MyLogger logger) throws AppException {
+        cmds = checkAllArgs(cmds);
         if (logger != null) {
             logger.log("Running command " + Arrays.asList(cmds));
         }
@@ -427,11 +424,23 @@ public class Utils {
         }
     }
 
+    private static String[] checkAllArgs(String[] cmds) {
+        List<String> cmdList = new ArrayList<>();
+        for (String cmd : cmds) {
+            if (cmd.contains(SPACE)) {
+                cmdList.addAll(Arrays.asList(cmd.split(SPACE)));
+            } else {
+                cmdList.add(cmd);
+            }
+        }
+        return cmdList.toArray(new String[0]);
+    }
+
     public static List<String> readFile(String path, MyLogger logger) {
         try {
             return Files.readAllLines(Paths.get(path));
         } catch (IOException e) {
-            if (logger!=null) {
+            if (logger != null) {
                 logger.error(e.getMessage(), e);
             }
         }
