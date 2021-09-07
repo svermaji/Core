@@ -40,6 +40,21 @@ public class Utils {
         return data;
     }
 
+    /**
+     * Opposite of escaping
+     *
+     * @param data string to unescape
+     * @return unescaped string
+     */
+    public static String unescape(String data) {
+        for (HtmlEsc h : HtmlEsc.values()) {
+            if (data.contains(h.getCh())) {
+                data = data.replaceAll(h.getEscStr(), h.getCh());
+            }
+        }
+        return data;
+    }
+
     public enum HtmlEsc {
         SP(" ", "&nbsp;"),
         LT("<", "&lt;"),
