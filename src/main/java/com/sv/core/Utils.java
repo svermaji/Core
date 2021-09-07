@@ -527,6 +527,14 @@ public class Utils {
         return time.format(DateTimeFormatter.ofPattern(format));
     }
 
+    // time in MM:SS format
+    public static String getTimeMS(long ms) {
+        long min = TimeUnit.MILLISECONDS.toMinutes(ms);
+        ms -= TimeUnit.MINUTES.toMillis(min);
+        long sec = TimeUnit.MILLISECONDS.toSeconds(ms);
+        return min + Constants.COLON + (sec > 9 ? sec : "0" + sec);
+    }
+
     public static String addBraces(boolean s) {
         return addBraces(s + "");
     }
