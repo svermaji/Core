@@ -470,10 +470,6 @@ public class Utils {
         return getNowMillis() - time;
     }
 
-    public static String getTimeNoSec() {
-        return getTime(false);
-    }
-
     /**
      * Returns local date time in format <pre>dd-MM-yyyy'T'HH:mm:ss</pre>
      *
@@ -518,13 +514,21 @@ public class Utils {
         return env;
     }
 
-    public static String getTime(boolean addSec) {
+    public static String getTime(boolean addSec, boolean ampm) {
         LocalTime time = LocalTime.now();
-        String format = "h:mma";
+        String format = ampm ? "h:mma" : "H:mm";
         if (addSec) {
-            format = "h:mm:sa";
+            format += ampm ? ":ssa" : ":ss";
         }
         return time.format(DateTimeFormatter.ofPattern(format));
+    }
+
+    public static String getTimeNoSec() {
+        return getTime(false, true);
+    }
+
+    public static String getTimeGlobal() {
+        return getTime(true, false);
     }
 
     // time in MM:SS format
