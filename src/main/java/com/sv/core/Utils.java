@@ -447,6 +447,19 @@ public class Utils {
         return new ArrayList<>();
     }
 
+    public static Properties readPropertyFile(String path, MyLogger logger) {
+        try {
+            Properties prop = new Properties();
+            prop.load(new FileInputStream(path));
+            return prop;
+        } catch (IOException e) {
+            if (logger != null) {
+                logger.error(e.getMessage(), e);
+            }
+        }
+        return new Properties();
+    }
+
     public static long getTimeDiffSec(long time) {
         return TimeUnit.MILLISECONDS.toSeconds(getTimeDiff(time));
     }
