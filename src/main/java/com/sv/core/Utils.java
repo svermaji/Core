@@ -514,6 +514,18 @@ public class Utils {
         return env;
     }
 
+    public static File getCurrentDirFile() {
+        return getCurrentDirPath().toFile();
+    }
+
+    public static String getCurrentDir() {
+        return getCurrentDirPath().toString();
+    }
+
+    public static Path getCurrentDirPath() {
+        return FileSystems.getDefault().getPath(".").toAbsolutePath();
+    }
+
     public static String getTime(boolean addSec, boolean ampm) {
         LocalTime time = LocalTime.now();
         String format = ampm ? "h:mma" : "H:mm";
