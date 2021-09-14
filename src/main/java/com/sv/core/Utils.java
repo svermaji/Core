@@ -40,6 +40,21 @@ public class Utils {
         return data;
     }
 
+    /**
+     * Opposite of escaping
+     *
+     * @param data string to unescape
+     * @return unescaped string
+     */
+    public static String unescape(String data) {
+        for (HtmlEsc h : HtmlEsc.values()) {
+            if (data.contains(h.getCh())) {
+                data = data.replaceAll(h.getEscStr(), h.getCh());
+            }
+        }
+        return data;
+    }
+
     public enum HtmlEsc {
         SP(" ", "&nbsp;"),
         LT("<", "&lt;"),
@@ -468,10 +483,6 @@ public class Utils {
         return getNowMillis() - time;
     }
 
-    public static String getTimeNoSec() {
-        return getTime(false);
-    }
-
     /**
      * Returns local date time in format <pre>dd-MM-yyyy'T'HH:mm:ss</pre>
      *
@@ -516,13 +527,33 @@ public class Utils {
         return env;
     }
 
-    public static String getTime(boolean addSec) {
+    public static File getCurrentDirFile() {
+        return getCurrentDirPath().toFile();
+    }
+
+    public static String getCurrentDir() {
+        return getCurrentDirPath().toString();
+    }
+
+    public static Path getCurrentDirPath() {
+        return FileSystems.getDefault().getPath(".").toAbsolutePath();
+    }
+
+    public static String getTime(boolean addSec, boolean ampm) {
         LocalTime time = LocalTime.now();
-        String format = "h:mma";
+        String format = ampm ? "h:mma" : "H:mm";
         if (addSec) {
-            format = "h:mm:sa";
+            format += ampm ? ":ssa" : ":ss";
         }
         return time.format(DateTimeFormatter.ofPattern(format));
+    }
+
+    public static String getTimeNoSec() {
+        return getTime(false, true);
+    }
+
+    public static String getTimeGlobal() {
+        return getTime(true, false);
     }
 
     // time in MM:SS format
