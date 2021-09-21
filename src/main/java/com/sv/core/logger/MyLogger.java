@@ -150,8 +150,14 @@ public class MyLogger {
      */
     public void log(String level, String message) {
         String callerClass = "";
-        if (Thread.currentThread().getStackTrace().length > 2) {
-            callerClass = Utils.addBraces(Thread.currentThread().getStackTrace()[2].getClassName());
+        if (Thread.currentThread().getStackTrace().length > 4) {
+            StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+            callerClass = Utils.addBraces(ste[4].getClassName());
+            /*System.out.println(ste.length);
+            int limit = ste.length > 5 ? 5 : ste.length;
+            for (int i = 0; i < limit; i++) {
+                System.out.println(i + "--" + ste[i].getClassName());
+            }*/
         }
 
         try {
