@@ -80,20 +80,20 @@ public class DefaultConfigs {
     }
 
     private void readConfig() {
-        logger.log("Loading properties from path: " + propFileName);
+        logger.info("Loading properties from path " + Utils.addBraces(propFileName));
         try (InputStream is = Files.newInputStream(Paths.get(propFileName))) {
             propUrl = Paths.get(propFileName).toUri().toURL();
             configs.load(is);
         } catch (Exception e) {
-            logger.log("Error in loading properties via file path, trying class loader.");
+            logger.info("Error in loading properties via file path, trying class loader.");
             try (InputStream is = getClass().getClassLoader().getResourceAsStream(propFileName)) {
                 propUrl = Paths.get(propFileName).toUri().toURL();
                 configs.load(is);
             } catch (IOException ioException) {
-                logger.log("Error in loading properties via class loader.");
+                logger.info("Error in loading properties via class loader.");
             }
         }
-        logger.log("Prop url calculated as: " + propUrl);
+        logger.info("Prop url calculated as " + Utils.addBraces(propUrl.toString()));
     }
 
     /**
@@ -102,7 +102,7 @@ public class DefaultConfigs {
      * @param obj Calling class that has getters
      */
     public void saveConfig(Object obj) {
-        logger.log("Saving properties at " + propUrl.getPath());
+        logger.info("Saving properties at " + propUrl.getPath());
         configs.clear();
         for (String cfg : config) {
             try {
@@ -111,11 +111,11 @@ public class DefaultConfigs {
                 logger.error("Unable to save config for [" + cfg + "].  Please check if method [get" + cfg + "] exists.");
             }
         }
-        logger.log("Config is " + configs);
+        logger.info("Config is " + configs);
         try {
             configs.store(new FileOutputStream(propUrl.getPath()), null);
         } catch (IOException e) {
-            logger.log("Error in saving properties.");
+            logger.info("Error in saving properties.");
         }
     }
 

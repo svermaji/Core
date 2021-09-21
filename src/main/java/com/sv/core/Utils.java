@@ -365,7 +365,7 @@ public class Utils {
         try {
             Process process = runProcess(cmd, logger);
             /*if (logger != null) {
-                logger.log("Output " + getProcessOutput(process, logger));
+                logger.info("Output " + getProcessOutput(process, logger));
             }*/
         } catch (AppException e) {
             return e.getMessage();
@@ -377,9 +377,9 @@ public class Utils {
         String data = getProcessOutput(process, logger);
         if (logger != null) {
             if (Utils.hasValue(data)) {
-                logger.log(data);
+                logger.info(data);
             } else {
-                logger.log("No process output");
+                logger.info("No process output");
             }
         }
     }
@@ -427,7 +427,7 @@ public class Utils {
     public static Process runProcess(String[] cmds, MyLogger logger) throws AppException {
         cmds = checkAllArgs(cmds);
         if (logger != null) {
-            logger.log("Running command " + Arrays.asList(cmds));
+            logger.info("Running command " + Arrays.asList(cmds));
         }
         try {
             return Runtime.getRuntime().exec(cmds);

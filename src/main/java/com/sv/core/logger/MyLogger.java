@@ -112,16 +112,20 @@ public class MyLogger {
 
     public void debug(String message) {
         if (debug) {
-            log("DEBUG: " + message);
+            log("DEBUG", message);
         }
     }
 
+    public void info(String message) {
+        log("INFO", message);
+    }
+
     public void warn(String message) {
-        log("WARN: " + message);
+        log("WARN", message);
     }
 
     public void error(String message) {
-        log("ERROR: " + message);
+        log("ERROR", message);
     }
 
     public void error(Throwable throwable) {
@@ -141,13 +145,19 @@ public class MyLogger {
      * If log file could not be initialized
      * thn output would be redirected to console.
      *
+     * @param level - log level
      * @param message - debug statement
      */
-    public void log(String message) {
+    public void log(String level, String message) {
+        String callerClass = "";
+        if (Thread.currentThread().getStackTrace().length > 2) {
+            callerClass = Utils.addBraces(Thread.currentThread().getStackTrace()[2].getClassName());
+        }
+
         try {
             if (logWriter != null) {
                 synchronized (logWriter) {
-                    logWriter.write(getTime() + message + System.lineSeparator());
+                    logWriter.write(getTime() + callerClass + Utils.addBraces(level) + message + System.lineSeparator());
                     logWriter.flush();
                 }
             } else {
@@ -172,6 +182,6 @@ public class MyLogger {
     }
 
     private String getTime() {
-        return "[" + LocalDateTime.now().format(formatter) + "]: ";
+        return "[" + LocalDateTime.now().format(formatter) + "]";
     }
 }
