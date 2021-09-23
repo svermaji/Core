@@ -336,6 +336,10 @@ public class Utils {
         return "[" + getTimeDiffSec(time) + " sec]";
     }
 
+    public static String getTimeDiffSecMilliStr(long time) {
+        return "[" + getTimeDiffSecMilli(time) + " sec]";
+    }
+
     public static long getNowMillis() {
         return System.currentTimeMillis();
     }
@@ -477,6 +481,12 @@ public class Utils {
 
     public static long getTimeDiffSec(long time) {
         return TimeUnit.MILLISECONDS.toSeconds(getTimeDiff(time));
+    }
+
+    public static String getTimeDiffSecMilli(long time) {
+        long sec = TimeUnit.MILLISECONDS.toSeconds(getTimeDiff(time));
+        long remain = time - TimeUnit.SECONDS.toMillis(sec);
+        return String.format("%.3f", Double.parseDouble(sec + DOT + remain));
     }
 
     public static long getTimeDiff(long time) {
