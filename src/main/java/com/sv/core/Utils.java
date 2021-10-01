@@ -7,6 +7,7 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -457,13 +458,27 @@ public class Utils {
 
     public static List<String> readFile(String path, MyLogger logger) {
         try {
-            return Files.readAllLines(Paths.get(path));
+            return Files.readAllLines(createPath(path));
         } catch (IOException e) {
             if (logger != null) {
                 logger.error(e.getMessage(), e);
             }
         }
         return new ArrayList<>();
+    }
+
+    public static boolean writeFile(String path, String data, MyLogger logger) {
+        boolean result = true;
+        try {
+            Path p = Files.write(createPath(path), data.getBytes());
+            logger.info("File successfully written at " + addBraces(p.toString()));
+        } catch (IOException e) {
+            if (logger != null) {
+                logger.error(e.getMessage(), e);
+            }
+            result = false;
+        }
+        return result;
     }
 
     public static Properties readPropertyFile(String path, MyLogger logger) {
@@ -637,7 +652,7 @@ public class Utils {
         return str;
     }
 
-    public static Object callMethod(Object obj, String name, Object[] args, MyLogger logger) {
+    public static Object callMethod(Object obj, String methodName, Object[] args, MyLogger logger) {
 
         String argsDtl = "No arg";
         Class<?>[] clz = new Class[0];
@@ -656,17 +671,17 @@ public class Utils {
             argsDtl = sb.toString();
         }
 
-        logger.debug("Calling method " + addBraces(name)
+        logger.debug("Calling method " + addBraces(methodName)
                 + " on class " + addBraces(obj.getClass().getSimpleName())
                 + " args " + argsDtl
         );
         try {
             if (args == null) {
-                return obj.getClass().getDeclaredMethod(name).invoke(obj);
+                return obj.getClass().getDeclaredMethod(methodName).invoke(obj);
             }
-            return obj.getClass().getDeclaredMethod(name, clz).invoke(obj, args);
+            return obj.getClass().getDeclaredMethod(methodName, clz).invoke(obj, args);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            logger.error("Error in calling method: " + name + " on class "
+            logger.error("Error in calling method: " + methodName + " on class "
                     + obj.getClass().getSimpleName() + ". Details: ", e);
         }
         return null;
