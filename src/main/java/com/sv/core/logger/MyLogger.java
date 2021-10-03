@@ -163,7 +163,7 @@ public class MyLogger {
         try {
             if (logWriter != null) {
                 synchronized (logWriter) {
-                    logWriter.write(getTime() + callerClass + Utils.addBraces(level) + message + System.lineSeparator());
+                    logWriter.write(getTime() + callerClass + Utils.addBraces(level) + Constants.SPACE + message + System.lineSeparator());
                     logWriter.flush();
                 }
             } else {
