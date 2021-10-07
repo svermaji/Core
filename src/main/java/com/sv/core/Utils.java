@@ -268,30 +268,48 @@ public class Utils {
         }
     }
 
+    public static String getSizeString(long sz) {
+        return getSizeString(sz, true, true);
+    }
+
     /**
-     * Returns string for a file size that could
+     * Returns string for a size that could
      * be in GB or MB or KB or in bytes.
      *
-     * @param fs file size
+     * @param sz size in bytes
      * @return String
      */
-    public static String getSizeString(long fs) {
+    public static String getSizeString(long sz, boolean addBraces, boolean longNotation) {
         long KB = 1024;
-        float inKB = (float) fs / KB;
+        float inKB = (float) sz / KB;
         float inMB = inKB / KB;
         float inGB = inMB / KB;
-        if (inGB > 1) {
-            return String.format("[%sGB]", formatFloat(inGB));
-        } else if (inMB > 1) {
-            return String.format("[%sMB]", formatFloat(inMB));
-        } else if (inKB > 1) {
-            return String.format("[%sKB]", formatFloat(inKB));
+        String pre = "[%s", suf = "B]";
+        int digitsAfterDot = 2;
+        if (!addBraces) {
+            pre = "%s";
+            suf = "B";
         }
-        return String.format("[%sBytes]", fs);
+        if (!longNotation) {
+            suf = "";
+            digitsAfterDot = 1;
+        }
+        if (inGB > 1) {
+            return String.format(pre + "G" + suf, formatFloat(inGB, digitsAfterDot));
+        } else if (inMB > 1) {
+            return String.format(pre + "M" + suf, formatFloat(inMB, digitsAfterDot));
+        } else if (inKB > 1) {
+            return String.format(pre + "K" + suf, formatFloat(inKB, digitsAfterDot));
+        }
+        return String.format(pre + "B" + suf, sz);
     }
 
     private static String formatFloat(float size) {
-        return String.format("%.2f", size);
+        return formatFloat(size, 2);
+    }
+
+    private static String formatFloat(float size, int digitsAfterDot) {
+        return String.format("%." + digitsAfterDot + "f", size);
     }
 
     /**
