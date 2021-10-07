@@ -275,7 +275,7 @@ public class Utils {
      * @param fs file size
      * @return String
      */
-    public static String getFileSizeString(long fs) {
+    public static String getSizeString(long fs) {
         long KB = 1024;
         float inKB = (float) fs / KB;
         float inMB = inKB / KB;
