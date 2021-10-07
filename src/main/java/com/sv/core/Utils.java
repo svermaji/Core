@@ -677,9 +677,9 @@ public class Utils {
         );
         try {
             if (args == null) {
-                return obj.getClass().getDeclaredMethod(methodName).invoke(obj);
+                return obj.getClass().getMethod(methodName).invoke(obj);
             }
-            return obj.getClass().getDeclaredMethod(methodName, clz).invoke(obj, args);
+            return obj.getClass().getMethod(methodName, clz).invoke(obj, args);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             logger.error("Error in calling method: " + methodName + " on class "
                     + obj.getClass().getSimpleName() + ". Details: ", e);
