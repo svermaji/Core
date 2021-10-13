@@ -8,6 +8,7 @@ Parent-pom project is required. Url `https://github.com/svermaji/Core-Parent.git
 * **Blogs:** https://sv-technical.blogspot.com/
 
 ## Description<br>
+* Increased pom version for new changes.
 * This library is common for different projects.
 * This has Utils, Logger and Configs utilities.
 * Configs can be used to store/load configuration for an application.
