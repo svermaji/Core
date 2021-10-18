@@ -301,7 +301,7 @@ public class Utils {
         } else if (inKB > 1) {
             return String.format(pre + "K" + suf, formatFloat(inKB, digitsAfterDot));
         }
-        return String.format(pre + "B" + suf, sz);
+        return String.format(pre + suf, sz);
     }
 
     private static String formatFloat(float size) {
