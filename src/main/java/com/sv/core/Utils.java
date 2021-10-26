@@ -7,17 +7,16 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import static com.sv.core.Constants.*;
 
@@ -349,6 +348,21 @@ public class Utils {
 
     public static boolean isInCharArr(Character[] arr, char ch) {
         return Arrays.stream(arr).anyMatch(a -> a == ch);
+    }
+
+    public static String filterFromCharArr(Character[] allowed, String toCheck) {
+        return toCheck.chars ()
+                .filter(c -> isInCharArr(allowed, (char)c))
+                .mapToObj(c -> "" + (char) c)
+                .collect(Collectors.joining());
+    }
+
+    public static String filterNumbers(String toCheck) {
+        return filterFromCharArr(NUM_ARR, toCheck);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(filterNumbers("as d34sd fg"));
     }
 
     public static String getTimeDiffSecStr(long time) {
