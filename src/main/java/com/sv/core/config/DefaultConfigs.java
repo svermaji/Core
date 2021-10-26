@@ -60,11 +60,11 @@ public class DefaultConfigs {
      * @return config value
      */
     public int getIntConfig(String name) {
-        return Integer.parseInt(getConfig(name));
+        return Utils.convertToInt(getConfig(name), -1);
     }
 
     public long getLongConfig(String name) {
-        return Long.parseLong(getConfig(name));
+        return Utils.convertToLong(getConfig(name), -1);
     }
 
     /**

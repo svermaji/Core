@@ -370,6 +370,15 @@ public class Utils {
         return defaultVal;
     }
 
+    public static long convertToLong(String s, long defaultVal) {
+        try {
+            return Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            // no action
+        }
+        return defaultVal;
+    }
+
     public static void main(String[] args) {
         System.out.println(filterNumbers("as d34sd fg"));
     }
