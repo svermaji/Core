@@ -361,6 +361,15 @@ public class Utils {
         return filterFromCharArr(NUM_ARR, toCheck);
     }
 
+    public static int convertToInt(String s, int defaultVal) {
+        try {
+            return Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            // no action
+        }
+        return defaultVal;
+    }
+
     public static void main(String[] args) {
         System.out.println(filterNumbers("as d34sd fg"));
     }
