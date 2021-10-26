@@ -14,7 +14,7 @@ public class MyLogger {
 
     private Writer logWriter = null;
     private static MyLogger logger = null;
-    private boolean debug;
+    private boolean debug, simpleClassName;
     private static DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("dd.MMM.yyyy'T'HH:mm:ss.SSSSSS");
 
@@ -66,6 +66,10 @@ public class MyLogger {
      * @return File logger instance
      */
     public static MyLogger createLogger(String logFilename, boolean debugEnabled) {
+        return createLogger(logFilename, false, false);
+    }
+
+    public static MyLogger createLogger(String logFilename, boolean debugEnabled, boolean simpleClassName) {
         if (logger == null) {
             logger = new MyLogger();
             try {
@@ -75,6 +79,7 @@ public class MyLogger {
             }
         }
         logger.setDebug(debugEnabled);
+        logger.setSimpleClassName(simpleClassName);
         return logger;
     }
 
@@ -97,6 +102,14 @@ public class MyLogger {
      */
     public boolean isDebug() {
         return debug;
+    }
+
+    public boolean isSimpleClassName() {
+        return simpleClassName;
+    }
+
+    public void setSimpleClassName(boolean simpleClassName) {
+        this.simpleClassName = simpleClassName;
     }
 
     /**
@@ -145,14 +158,15 @@ public class MyLogger {
      * If log file could not be initialized
      * thn output would be redirected to console.
      *
-     * @param level - log level
+     * @param level   - log level
      * @param message - debug statement
      */
     public void log(String level, String message) {
         String callerClass = "";
         if (Thread.currentThread().getStackTrace().length > 4) {
             StackTraceElement[] ste = Thread.currentThread().getStackTrace();
-            callerClass = Utils.addBraces(ste[4].getClassName());
+            String cn = simpleClassName ? simpleName(ste[4].getClassName()) : ste[4].getClassName();
+            callerClass = Utils.addBraces(cn + Constants.HASH + ste[4].getMethodName());
             /*System.out.println(ste.length);
             int limit = ste.length > 5 ? 5 : ste.length;
             for (int i = 0; i < limit; i++) {
@@ -172,6 +186,13 @@ public class MyLogger {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private String simpleName(String className) {
+        if (className.contains(Constants.DOT)) {
+            className = className.substring(className.lastIndexOf(Constants.DOT) + Constants.DOT.length());
+        }
+        return className;
     }
 
     private void createLogFile(String logFile) throws IOException {
