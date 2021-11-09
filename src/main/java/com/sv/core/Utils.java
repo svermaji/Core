@@ -268,7 +268,7 @@ public class Utils {
     }
 
     public static String getSizeString(long sz) {
-        return getSizeString(sz, true, true);
+        return getSizeString(sz, true, true, 2);
     }
 
     /**
@@ -278,20 +278,21 @@ public class Utils {
      * @param sz size in bytes
      * @return String
      */
-    public static String getSizeString(long sz, boolean addBraces, boolean longNotation) {
+    public static String getSizeString(long sz, boolean addBraces, boolean longNotation, int digitsAfterDot) {
         long KB = 1024;
         float inKB = (float) sz / KB;
         float inMB = inKB / KB;
         float inGB = inMB / KB;
         String pre = "[%s", suf = "B]";
-        int digitsAfterDot = 2;
+        if (digitsAfterDot < 0) {
+            digitsAfterDot = 0;
+        }
         if (!addBraces) {
             pre = "%s";
             suf = "B";
         }
         if (!longNotation) {
             suf = "";
-            digitsAfterDot = 1;
         }
         if (inGB > 1) {
             return String.format(pre + "G" + suf, formatFloat(inGB, digitsAfterDot));
@@ -351,8 +352,8 @@ public class Utils {
     }
 
     public static String filterFromCharArr(Character[] allowed, String toCheck) {
-        return toCheck.chars ()
-                .filter(c -> isInCharArr(allowed, (char)c))
+        return toCheck.chars()
+                .filter(c -> isInCharArr(allowed, (char) c))
                 .mapToObj(c -> "" + (char) c)
                 .collect(Collectors.joining());
     }
