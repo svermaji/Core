@@ -288,9 +288,9 @@ public class Utils {
      * Returns string for a size that could
      * be in GB or MB or KB or in bytes.
      *
-     * @param sz size in bytes
-     * @param addBraces - if need [ ] around result
-     * @param addBSuffix - if B added like MB or just M
+     * @param sz             size in bytes
+     * @param addBraces      - if need [ ] around result
+     * @param addBSuffix     - if B added like MB or just M
      * @param digitsAfterDot - How many digits after dot
      * @return size notation e.g. 1024 becomes 1KB
      */
@@ -298,16 +298,16 @@ public class Utils {
         float inKB = (float) sz / KB;
         float inMB = inKB / KB;
         float inGB = inMB / KB;
-        String pre = "[%s", suf = "B]";
+        String pre = "%s", suf = "B";
         if (digitsAfterDot < 0) {
             digitsAfterDot = 0;
         }
-        if (!addBraces) {
-            pre = "%s";
-            suf = "B";
-        }
         if (!addBSuffix) {
             suf = "";
+        }
+        if (addBraces) {
+            pre = "[" + pre;
+            suf += "]";
         }
         if (inGB > 1) {
             return String.format(pre + "G" + suf, formatFloat(inGB, digitsAfterDot));
