@@ -7,9 +7,8 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.*;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -267,8 +266,22 @@ public class Utils {
         }
     }
 
+    public static String getFileSizeString(String path) {
+        long sz;
+        try {
+            sz = Files.size(createPath(path));
+        } catch (IOException e) {
+            sz = 0;
+        }
+        return getSizeString(sz, true, true, 2);
+    }
+
     public static String getSizeString(long sz) {
         return getSizeString(sz, true, true, 2);
+    }
+
+    public static String formatNumber(double n) {
+        return NumberFormat.getNumberInstance().format(n);
     }
 
     /**
@@ -519,13 +532,21 @@ public class Utils {
     }
 
     public static boolean writeFile(String path, String data, MyLogger logger) {
+        return writeFile(path, data, logger, StandardOpenOption.WRITE);
+    }
+
+    public static boolean writeFile(String path, String data, MyLogger logger, OpenOption... options) {
         boolean result = true;
         try {
-            Path p = Files.write(createPath(path), data.getBytes());
-            logger.info("File successfully written at " + addBraces(p.toString()));
+            Path p = Files.write(createPath(path), data.getBytes(), options);
+            if (logger != null) {
+                logger.info("File successfully written at " + addBraces(p.toString()));
+            }
         } catch (IOException e) {
             if (logger != null) {
                 logger.error(e.getMessage(), e);
+            } else {
+                e.printStackTrace();
             }
             result = false;
         }
