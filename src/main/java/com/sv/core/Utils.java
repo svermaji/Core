@@ -289,10 +289,12 @@ public class Utils {
      * be in GB or MB or KB or in bytes.
      *
      * @param sz size in bytes
-     * @return String
+     * @param addBraces - if need [ ] around result
+     * @param addBSuffix - if B added like MB or just M
+     * @param digitsAfterDot - How many digits after dot
+     * @return size notation e.g. 1024 becomes 1KB
      */
-    public static String getSizeString(long sz, boolean addBraces, boolean longNotation, int digitsAfterDot) {
-        long KB = 1024;
+    public static String getSizeString(long sz, boolean addBraces, boolean addBSuffix, int digitsAfterDot) {
         float inKB = (float) sz / KB;
         float inMB = inKB / KB;
         float inGB = inMB / KB;
@@ -304,7 +306,7 @@ public class Utils {
             pre = "%s";
             suf = "B";
         }
-        if (!longNotation) {
+        if (!addBSuffix) {
             suf = "";
         }
         if (inGB > 1) {
@@ -394,7 +396,8 @@ public class Utils {
     }
 
     public static void main(String[] args) {
-        System.out.println(filterNumbers("as d34sd fg"));
+        System.out.println(1024 * 1024 * 55);
+        System.out.println(getSizeString(1024 * 1024 * 55));
     }
 
     public static String getTimeDiffSecStr(long time) {
