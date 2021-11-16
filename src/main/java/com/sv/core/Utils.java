@@ -386,6 +386,15 @@ public class Utils {
         return defaultVal;
     }
 
+    public static int convertToInt(String s, int defaultVal, int min, int max) {
+        int val = convertToInt(s, defaultVal);
+        return (val >= min && val <= max) ? val : defaultVal;
+    }
+
+    public static int validateInt(int val, int defaultVal, int min, int max) {
+        return (val >= min && val <= max) ? val : defaultVal;
+    }
+
     public static long convertToLong(String s, long defaultVal) {
         try {
             return Integer.parseInt(s);
@@ -393,6 +402,15 @@ public class Utils {
             // no action
         }
         return defaultVal;
+    }
+
+    public static long convertToLong(String s, long defaultVal, long min, long max) {
+        long val = convertToLong(s, defaultVal);
+        return (val >= min && val <= max) ? val : defaultVal;
+    }
+
+    public static long validateLong(long val, long defaultVal, long min, long max) {
+        return (val >= min && val <= max) ? val : defaultVal;
     }
 
     public static void main(String[] args) {
