@@ -94,6 +94,7 @@ public class DefaultConfigs {
             }
         }
         logger.info("Prop url calculated as " + Utils.addBraces(propUrl.toString()));
+        logger.debug("Config loaded as " + configs);
     }
 
     /**
@@ -111,7 +112,8 @@ public class DefaultConfigs {
                 logger.error("Unable to save config for [" + cfg + "].  Please check if method [get" + cfg + "] exists.");
             }
         }
-        logger.info("Config is " + configs);
+        logger.debug("Config is " + configs);
+        logger.info("Config saved successfully");
         try {
             configs.store(new FileOutputStream(propUrl.getPath()), null);
         } catch (IOException e) {
