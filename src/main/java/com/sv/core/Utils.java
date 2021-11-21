@@ -266,6 +266,22 @@ public class Utils {
         }
     }
 
+    public static long getFileSize(String path, long defaultValue) {
+        Path p = createPath(path);
+        if (Files.exists(p)) {
+            try {
+                return Files.size(p);
+            } catch (IOException e) {
+                // no action
+            }
+        }
+        return defaultValue;
+    }
+
+    public static long getFileSize(String path) {
+        return getFileSize(path, -1);
+    }
+
     public static String getFileSizeString(String path) {
         long sz;
         try {
