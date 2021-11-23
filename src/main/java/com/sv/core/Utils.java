@@ -569,7 +569,8 @@ public class Utils {
     }
 
     public static boolean writeFile(String path, String data, MyLogger logger) {
-        return writeFile(path, data, logger, StandardOpenOption.WRITE);
+        return writeFile(path, data, logger, new StandardOpenOption[]
+                {StandardOpenOption.CREATE, StandardOpenOption.WRITE});
     }
 
     public static boolean writeFile(String path, String data, MyLogger logger, OpenOption... options) {
