@@ -14,6 +14,8 @@ public final class Constants {
     }
 
     public static final int KB = 1024;
+    public static final int MB = KB * KB;
+    public static final int GB = KB * MB;
     public static final int ONE = 1;
     public static final int TEN = 10;
     public static final long SEC_1 = TimeUnit.SECONDS.toMillis(ONE);
