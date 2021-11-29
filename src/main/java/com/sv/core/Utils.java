@@ -402,6 +402,15 @@ public class Utils {
         return defaultVal;
     }
 
+    /**
+     * This method will return 0 in case of exception
+     * @param s int as string
+     * @return int
+     */
+    public static int convertToInt(String s) {
+        return convertToInt(s, 0);
+    }
+
     public static int convertToInt(String s, int defaultVal, int min, int max) {
         int val = convertToInt(s, defaultVal);
         return (val >= min && val <= max) ? val : defaultVal;
