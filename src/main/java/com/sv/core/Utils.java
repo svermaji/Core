@@ -302,7 +302,8 @@ public class Utils {
     public static String formatTime(int sec) {
         long min = TimeUnit.SECONDS.toMinutes(sec);
         long rsec = sec - TimeUnit.MINUTES.toSeconds(min);
-        return min + COLON + rsec;
+        String s = min + COLON;
+        return (rsec < 10) ? s + "0" + rsec : s + rsec;
     }
 
     /**
