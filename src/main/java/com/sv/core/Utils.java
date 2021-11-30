@@ -300,6 +300,12 @@ public class Utils {
         return NumberFormat.getNumberInstance().format(n);
     }
 
+    public static String formatTime(int sec) {
+        long min = TimeUnit.SECONDS.toMinutes(sec);
+        long rsec = sec - TimeUnit.MINUTES.toSeconds(min);
+        return min + COLON + rsec;
+    }
+
     /**
      * Returns string for a size that could
      * be in GB or MB or KB or in bytes.
@@ -404,6 +410,7 @@ public class Utils {
 
     /**
      * This method will return 0 in case of exception
+     *
      * @param s int as string
      * @return int
      */
