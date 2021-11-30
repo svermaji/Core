@@ -574,6 +574,15 @@ public class Utils {
         return cmdList.toArray(new String[0]);
     }
 
+    public static void saveProperties(Properties prop, String filePath, MyLogger logger) {
+        logger.info("Saving properties at " + addBraces(filePath));
+        try {
+            prop.store(new FileOutputStream(filePath), null);
+        } catch (IOException e) {
+            logger.info("Error in saving properties.");
+        }
+    }
+
     public static List<String> listFiles(String dir, MyLogger logger) {
         List<String> list = new ArrayList<>();
         try {

@@ -114,11 +114,7 @@ public class DefaultConfigs {
         }
         logger.debug("Config is " + configs);
         logger.info("Config saved successfully");
-        try {
-            configs.store(new FileOutputStream(propUrl.getPath()), null);
-        } catch (IOException e) {
-            logger.info("Error in saving properties.");
-        }
+        Utils.saveProperties(configs, propUrl.getPath(), logger);
     }
 
 }
