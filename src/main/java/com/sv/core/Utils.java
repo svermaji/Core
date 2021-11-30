@@ -3,12 +3,14 @@ package com.sv.core;
 import com.sv.core.exception.AppException;
 import com.sv.core.logger.MyLogger;
 
+import javax.swing.text.DateFormatter;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.file.*;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -447,8 +449,7 @@ public class Utils {
     }
 
     public static void main(String[] args) {
-        System.out.println(1024 * 1024 * 55);
-        System.out.println(getSizeString(1024 * 1024 * 55));
+        System.out.println(getDateDDMMYYYY());
     }
 
     public static String getTimeDiffSecStr(long time) {
@@ -673,6 +674,10 @@ public class Utils {
         Date date = new Date(dt);
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
                 .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy h:mm:ssa"));
+    }
+
+    public static String getDateDDMMYYYY() {
+        return LocalDate.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"));
     }
 
     public static String getHostname(MyLogger logger) {
