@@ -78,7 +78,6 @@ public class Utils {
         }
     }
 
-
     /**
      * Return true if param has non-null value
      *
