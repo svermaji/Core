@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.sv.core.Constants.*;
 
@@ -571,6 +572,19 @@ public class Utils {
             }
         }
         return cmdList.toArray(new String[0]);
+    }
+
+    public static List<String> listFiles(String dir, MyLogger logger) {
+        List<String> list = new ArrayList<>();
+        try {
+            Stream<Path> paths = Files.list(Utils.createPath(dir));
+            paths.forEach(p -> list.add(p.toAbsolutePath().toString()));
+        } catch (IOException e) {
+            if (logger != null) {
+                logger.error("Unable to load files from " + Utils.addBraces(dir));
+            }
+        }
+        return list;
     }
 
     public static List<String> readFile(String path, MyLogger logger) {

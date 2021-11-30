@@ -34,6 +34,7 @@ public final class Constants {
     public static final String HASH = "#";
     public static final String COLON = ":";
     public static final String SEMI_COLON = ";";
+    public static final String PIPE = "|";
     public static final String DOUBLE_SPACE = SPACE + SPACE;
     public static final String DASH = "-";
     public static final String DOT = ".";
