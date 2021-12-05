@@ -791,12 +791,12 @@ public class Utils {
             if (arr.length == 1) {
                 str = arr[0];
                 if (hasValue(str)) {
-                    str = Character.toString(str.charAt(0)).toUpperCase() + str.substring(1);
+                    str = Character.toUpperCase(str.charAt(0)) + str.substring(1);
                 }
             } else {
                 for (String a : arr) {
                     if (hasValue(a)) {
-                        ans.append(Character.toString(a.charAt(0)).toUpperCase()).append(a.substring(1));
+                        ans.append(Character.toUpperCase(a.charAt(0))).append(a.substring(1));
                     }
                     ans.append(ch);
                 }
