@@ -108,7 +108,7 @@ public class Utils {
      */
     public static boolean getBoolean(String value) throws Exception {
         if (!hasValue(value)) {
-            throw new Exception("ERROR: Can't convert a null/empty string value to a boolean."); //throw new Exception("ERROR: Can't convert a null/empty string value to a boolean."); throw new Exception("ERROR: Can't convert a null/empty string value to a boolean.");
+            throw new Exception("ERROR: Can't convert a null/empty string value to a boolean.");
         }
 
         value = value.trim();
@@ -150,9 +150,8 @@ public class Utils {
      * @param defaultBool Default boolean to use if the value is empty
      *                    or if it is an invalid value.
      * @return Boolean true/false depending on the value of the input.
-     * @throws Exception Thrown if input does not have a valid value.
      */
-    public static boolean getBoolean(String value, boolean defaultBool) throws Exception {
+    public static boolean getBoolean(String value, boolean defaultBool) {
         if (!hasValue(value))
             return defaultBool;
 
