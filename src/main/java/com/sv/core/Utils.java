@@ -806,6 +806,17 @@ public class Utils {
     }
 
     public static Object callMethod(Object obj, String methodName, Object[] args, MyLogger logger) {
+        try {
+            return callMethodWithException(obj, methodName, args, logger);
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            logger.error("Error in calling method: " + methodName + " on class "
+                    + obj.getClass().getSimpleName() + ". Details: ", e);
+        }
+        return null;
+    }
+
+    public static Object callMethodWithException(Object obj, String methodName, Object[] args, MyLogger logger)
+            throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
         String argsDtl = "No arg";
         Class<?>[] clz = new Class[0];
@@ -828,15 +839,10 @@ public class Utils {
                 + " on class " + addBraces(obj.getClass().getSimpleName())
                 + " args " + argsDtl
         );
-        try {
-            if (args == null) {
-                return obj.getClass().getMethod(methodName).invoke(obj);
-            }
-            return obj.getClass().getMethod(methodName, clz).invoke(obj, args);
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            logger.error("Error in calling method: " + methodName + " on class "
-                    + obj.getClass().getSimpleName() + ". Details: ", e);
+
+        if (args == null) {
+            return obj.getClass().getMethod(methodName).invoke(obj);
         }
-        return null;
+        return obj.getClass().getMethod(methodName, clz).invoke(obj, args);
     }
 }
