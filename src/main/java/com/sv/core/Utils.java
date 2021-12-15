@@ -782,6 +782,14 @@ public class Utils {
         return ans.toString();
     }
 
+    public static String getUnicodeStr(String codeAsStr) {
+        return getUnicodeStr(convertToInt(codeAsStr));
+    }
+
+    public static String getUnicodeStr(int code) {
+        return new String(Character.toChars(code));
+    }
+
     public static String convertToTitleCase(String str) {
         String[] titleCaseChars = new String[]{"_", " ", "-"};
         for (String ch : titleCaseChars) {
