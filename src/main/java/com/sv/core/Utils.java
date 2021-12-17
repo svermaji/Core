@@ -267,6 +267,16 @@ public class Utils {
         }
     }
 
+    public static boolean deleteFile(String path) {
+        Path p = createPath(path);
+        try {
+            return Files.deleteIfExists(p);
+        } catch (IOException e) {
+            //no action
+        }
+        return false;
+    }
+
     public static long getFileSize(String path, long defaultValue) {
         Path p = createPath(path);
         if (Files.exists(p)) {
