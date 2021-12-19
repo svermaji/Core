@@ -457,7 +457,7 @@ public class Utils {
     }
 
     public static void main(String[] args) {
-        System.out.println(getDateDDMMYYYY());
+        System.out.println(Utils.class.getName());
     }
 
     public static String getTimeDiffSecStr(long time) {
@@ -592,6 +592,13 @@ public class Utils {
         }
     }
 
+    /**
+     * Returns absolute paths of files inside folder
+     *
+     * @param dir    directory path
+     * @param logger Obj
+     * @return list
+     */
     public static List<String> listFiles(String dir, MyLogger logger) {
         List<String> list = new ArrayList<>();
         try {
