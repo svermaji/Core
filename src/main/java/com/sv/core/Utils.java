@@ -460,6 +460,17 @@ public class Utils {
         System.out.println(Utils.class.getName());
     }
 
+    public static Object createObjFor(String className, Class[] clazzParams, Object[] params, MyLogger logger) {
+        Object obj = null;
+        try {
+            Class clazz = Class.forName(className);
+            obj = clazz.getConstructor(clazzParams).newInstance(params);
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            logger.error("Unable to create instance for " + addBraces(className));
+        }
+        return obj;
+    }
+
     public static String getTimeDiffSecStr(long time) {
         return "[" + getTimeDiffSec(time) + " sec]";
     }
