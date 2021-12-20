@@ -310,7 +310,7 @@ public class Utils {
         return NumberFormat.getNumberInstance().format(n);
     }
 
-    public static String formatTime(int sec) {
+    public static String formatTime(long sec) {
         long min = TimeUnit.SECONDS.toMinutes(sec);
         long rsec = sec - TimeUnit.MINUTES.toSeconds(min);
         String s = min + COLON;
