@@ -483,8 +483,8 @@ public class Utils {
         return System.currentTimeMillis();
     }
 
-    public static long getTimeDiffMin(long time) {
-        return TimeUnit.MILLISECONDS.toMinutes(getTimeDiff(time));
+    public static long getTimeDiffMin(long millis) {
+        return TimeUnit.MILLISECONDS.toMinutes(getTimeDiff(millis));
     }
 
     /**
@@ -670,18 +670,18 @@ public class Utils {
         return new Properties();
     }
 
-    public static long getTimeDiffSec(long time) {
-        return TimeUnit.MILLISECONDS.toSeconds(getTimeDiff(time));
+    public static long getTimeDiffSec(long millis) {
+        return TimeUnit.MILLISECONDS.toSeconds(getTimeDiff(millis));
     }
 
-    public static String getTimeDiffSecMilli(long time) {
-        long sec = TimeUnit.MILLISECONDS.toSeconds(getTimeDiff(time));
-        long remain = time - TimeUnit.SECONDS.toMillis(sec);
+    public static String getTimeDiffSecMilli(long millis) {
+        long sec = TimeUnit.MILLISECONDS.toSeconds(getTimeDiff(millis));
+        long remain = millis - TimeUnit.SECONDS.toMillis(sec);
         return String.format("%.3f", Double.parseDouble(sec + DOT + remain));
     }
 
-    public static long getTimeDiff(long time) {
-        return getNowMillis() - time;
+    public static long getTimeDiff(long millis) {
+        return getNowMillis() - millis;
     }
 
     /**
