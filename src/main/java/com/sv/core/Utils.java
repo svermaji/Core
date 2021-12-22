@@ -318,7 +318,7 @@ public class Utils {
     }
 
     public static String formatTimeHMS(long sec) {
-        long h = 0, m = 0, rsec = 0;
+        long h = 0, m = 0, rsec = sec;
         if (sec > 60) {
             m = TimeUnit.SECONDS.toMinutes(sec);
             if (m > 60) {
@@ -476,6 +476,7 @@ public class Utils {
     }
 
     public static void main(String[] args) {
+        System.out.println(formatTimeHMS(5));
         System.out.println(formatTimeHMS(65));
         System.out.println(formatTimeHMS(65435));
         System.out.println(formatTimeHMS(165));
