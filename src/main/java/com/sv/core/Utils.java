@@ -317,6 +317,25 @@ public class Utils {
         return (rsec < 10) ? s + "0" + rsec : s + rsec;
     }
 
+    public static String formatTimeHMS(long sec) {
+        long h = 0, m = 0, rsec = 0;
+        if (sec > 60) {
+            m = TimeUnit.SECONDS.toMinutes(sec);
+            if (m > 60) {
+                h = TimeUnit.SECONDS.toHours(sec);
+                m = m - TimeUnit.HOURS.toMinutes(h);
+                sec = sec - TimeUnit.HOURS.toSeconds(h);
+                rsec = sec - TimeUnit.MINUTES.toSeconds(m);
+            } else {
+                rsec = sec - TimeUnit.MINUTES.toSeconds(m);
+            }
+        }
+        String tm = h > 0 ? h + "h:" : "";
+        tm += m > 0 ? (m >= 10 ? m : "0" + m) + "m:" : "";
+        tm += rsec > 0 ? (rsec >= 10 ? rsec : "0" + rsec) + "s" : "";
+        return tm;
+    }
+
     /**
      * Returns string for a size that could
      * be in GB or MB or KB or in bytes.
@@ -457,7 +476,10 @@ public class Utils {
     }
 
     public static void main(String[] args) {
-        System.out.println(Utils.class.getName());
+        System.out.println(formatTimeHMS(65));
+        System.out.println(formatTimeHMS(65435));
+        System.out.println(formatTimeHMS(165));
+        System.out.println(formatTimeHMS(656565));
     }
 
     public static Object createObjFor(String className, Class[] clazzParams, Object[] params, MyLogger logger) {
