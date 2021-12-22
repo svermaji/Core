@@ -17,6 +17,8 @@ public class MyLogger {
     private boolean debug, simpleClassName;
     private static DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("dd.MMM.yyyy'T'HH:mm:ss.SSSSSS");
+    private String[] clazzAllowed = {"com.sv"};
+    private String[] methodsToSkip = {"lambda$"};
 
     public enum MsgType {
         INFO, WARN, ERROR
@@ -163,14 +165,15 @@ public class MyLogger {
      */
     public void log(String level, String message) {
         String callerClass = "";
-        if (Thread.currentThread().getStackTrace().length > 4) {
-            StackTraceElement[] ste = Thread.currentThread().getStackTrace();
-            String cn = simpleClassName ? simpleName(ste[4].getClassName()) : ste[4].getClassName();
-            callerClass = Utils.addBraces(cn + Constants.HASH + ste[4].getMethodName());
+        StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+        if (ste.length > 4) {
+            StackTraceElement se = getPrimarySTEToLog(ste[3], ste[4]);
+            String cn = simpleClassName ? simpleName(se.getClassName()) : se.getClassName();
+            callerClass = Utils.addBraces(cn + Constants.HASH + se.getMethodName());
             /*System.out.println(ste.length);
-            int limit = ste.length > 5 ? 5 : ste.length;
+            int limit = Math.min(ste.length, 7);
             for (int i = 0; i < limit; i++) {
-                System.out.println(i + "--" + ste[i].getClassName());
+                System.out.println(i + "--" + ste[i].getClassName() + "#" + ste[i].getMethodName() + "--" + message);
             }*/
         }
 
@@ -186,6 +189,35 @@ public class MyLogger {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private StackTraceElement getPrimarySTEToLog(StackTraceElement se3, StackTraceElement se4) {
+
+        return se3;
+
+        // TODO: check this
+        /*StackTraceElement se = se3.getClassName().equalsIgnoreCase(se4.getClassName()) ?
+                se3 : se4;
+        String cn = se.getClassName();
+        String mn = se.getMethodName();
+        boolean allowed = false;
+        for (String s : clazzAllowed) {
+            if (cn.startsWith(s)) {
+                allowed = true;
+                break;
+            }
+        }
+        if (allowed) {
+            for (String s : methodsToSkip) {
+                if (mn.contains(s)) {
+                    se = se3;
+                    break;
+                }
+            }
+        } else {
+            se = se3;
+        }
+        return se;*/
     }
 
     private String simpleName(String className) {
