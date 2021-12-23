@@ -637,7 +637,11 @@ public class Utils {
         List<String> list = new ArrayList<>();
         try {
             Stream<Path> paths = Files.list(Utils.createPath(dir));
-            paths.forEach(p -> list.add(p.toAbsolutePath().toString()));
+            paths.forEach(p -> {
+                if (p.toFile().isFile()) {
+                    list.add(p.toAbsolutePath().toString());
+                }
+            });
         } catch (IOException e) {
             if (logger != null) {
                 logger.error("Unable to load files from " + Utils.addBraces(dir));
