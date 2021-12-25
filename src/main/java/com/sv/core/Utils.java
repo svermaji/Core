@@ -476,11 +476,7 @@ public class Utils {
     }
 
     public static void main(String[] args) {
-        System.out.println(formatTimeHMS(5));
-        System.out.println(formatTimeHMS(65));
-        System.out.println(formatTimeHMS(65435));
-        System.out.println(formatTimeHMS(165));
-        System.out.println(formatTimeHMS(656565));
+        System.out.println(getCurrentDir());
     }
 
     public static Object createObjFor(String className, Class[] clazzParams, Object[] params, MyLogger logger) {
@@ -764,11 +760,17 @@ public class Utils {
     }
 
     public static String getCurrentDir() {
-        return getCurrentDirPath().toString();
+        String ps = getCurrentDirPath().toString();
+        if (ps.contains(F_SLASH) && !ps.endsWith(F_SLASH)) {
+            ps = ps + F_SLASH;
+        } else if (ps.contains(SLASH) && !ps.endsWith(SLASH)) {
+            ps = ps + SLASH;
+        }
+        return ps;
     }
 
     public static Path getCurrentDirPath() {
-        return FileSystems.getDefault().getPath(".").toAbsolutePath();
+        return FileSystems.getDefault().getPath("").toAbsolutePath();
     }
 
     public static String getTime(boolean addSec, boolean ampm) {
