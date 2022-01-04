@@ -480,6 +480,18 @@ public class Utils {
         System.out.println(getCurrentDir());
     }
 
+    public static int getIdxInArr(String[] arr, String check) {
+        int r = -1;
+        int l = arr.length;
+        for (int i = 0; i < l; i++) {
+            if (arr[i].equals(check)) {
+                r = i;
+                break;
+            }
+        }
+        return r;
+    }
+
     public static int getValueFromRange(int min, int max, int def, int valToCheck) {
         ValueRange range = ValueRange.of(min, max);
         if (!range.isValidIntValue(valToCheck)) {
