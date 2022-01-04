@@ -480,7 +480,7 @@ public class Utils {
         System.out.println(getCurrentDir());
     }
 
-    public int getValueFromRange(int min, int max, int def, int valToCheck) {
+    public static int getValueFromRange(int min, int max, int def, int valToCheck) {
         ValueRange range = ValueRange.of(min, max);
         if (!range.isValidIntValue(valToCheck)) {
             valToCheck = def;
