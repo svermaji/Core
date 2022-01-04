@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ValueRange;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -477,6 +478,14 @@ public class Utils {
 
     public static void main(String[] args) {
         System.out.println(getCurrentDir());
+    }
+
+    public int getValueFromRange(int min, int max, int def, int valToCheck) {
+        ValueRange range = ValueRange.of(min, max);
+        if (!range.isValidIntValue(valToCheck)) {
+            valToCheck = def;
+        }
+        return valToCheck;
     }
 
     public static Object createObjFor(String className, Class[] clazzParams, Object[] params, MyLogger logger) {
