@@ -3,6 +3,9 @@ package com.sv.core;
 import com.sv.core.exception.AppException;
 import com.sv.core.logger.MyLogger;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
@@ -16,6 +19,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ValueRange;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -78,6 +82,17 @@ public class Utils {
         HtmlEsc(String ch, String escStr) {
             this.ch = ch;
             this.escStr = escStr;
+        }
+    }
+
+    public enum FilenameReplacer {
+        COLON(":", ".");
+
+        String ch, rep;
+
+        FilenameReplacer(String ch, String rep) {
+            this.ch = ch;
+            this.rep = rep;
         }
     }
 
@@ -477,7 +492,8 @@ public class Utils {
     }
 
     public static void main(String[] args) {
-        System.out.println(getCurrentDir());
+        String loc = "screenshot" + formatForFilename(getFormattedDate()) + DOT;
+        System.out.println(loc);
     }
 
     public static int getIdxInArr(String[] arr, String check) {
@@ -729,7 +745,7 @@ public class Utils {
     }
 
     /**
-     * Returns local date time in format <pre>dd-MM-yyyy'T'HH:mm:ss</pre>
+     * Returns local date time in format <pre>dd-MMM-yyyy h:mm:ssa</pre>
      *
      * @return date time
      */
@@ -746,7 +762,7 @@ public class Utils {
                 .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy h:mm:ssa"));
     }
 
-    public static String getDateDDMMYYYY() {
+    public static String getDateDDMMMYYYY() {
         return LocalDate.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"));
     }
 
@@ -857,6 +873,38 @@ public class Utils {
             }
         }
         return ans.toString();
+    }
+
+    /**
+     * This will take screen shot of primary screen
+     * and save at given path with name with date time
+     *
+     * @param path   folder name to save
+     * @param logger MyLogger object
+     * @return true if success
+     */
+    public static boolean takeScreenshot(String path, MyLogger logger) {
+        boolean result = true;
+        String format = "png";
+        String loc = path + SLASH + "screenshot-" + formatForFilename(getFormattedDate()) + DOT + format;
+        BufferedImage image = null;
+        try {
+            image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+            ImageIO.write(image, format, new File(loc));
+        } catch (AWTException | IOException e) {
+            logger.error("Error in taking screenshot and saving at path [" + addBraces(path));
+            result = false;
+        }
+        return result;
+    }
+
+    public static String formatForFilename(String data) {
+        for (FilenameReplacer f : FilenameReplacer.values()) {
+            if (data.contains(f.ch)) {
+                data = data.replaceAll(f.ch, f.rep);
+            }
+        }
+        return data;
     }
 
     public static String getUnicodeStr(String codeAsStr) {
