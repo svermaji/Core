@@ -255,6 +255,10 @@ public class Utils {
         sleep(500);
     }
 
+    public static void sleep100Milli() {
+        sleep(100);
+    }
+
     /**
      * Sleep that handles exception
      *
