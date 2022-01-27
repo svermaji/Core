@@ -5,6 +5,7 @@ import com.sv.core.logger.MyLogger;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
@@ -59,6 +60,19 @@ public class Utils {
             }
         }
         return data;
+    }
+
+    public enum WinDirection {
+        left(KeyEvent.VK_LEFT),
+        right(KeyEvent.VK_RIGHT),
+        up(KeyEvent.VK_UP),
+        down(KeyEvent.VK_DOWN);
+
+        int val;
+
+        WinDirection(int v) {
+            this.val = v;
+        }
     }
 
     public enum HtmlEsc {
@@ -900,6 +914,19 @@ public class Utils {
             result = false;
         }
         return result;
+    }
+
+    public static void setWindowPosition(WinDirection winDirection, MyLogger logger) {
+        try {
+            Robot r = new Robot();
+            r.keyPress(KeyEvent.VK_WINDOWS);
+            r.keyPress(winDirection.val);
+            //Release Windows button
+            r.keyRelease(winDirection.val);
+            r.keyRelease(KeyEvent.VK_WINDOWS);
+        } catch (Exception e) {
+            logger.error("Unable to move window to [" + winDirection + "]", e);
+        }
     }
 
     public static String formatForFilename(String data) {
