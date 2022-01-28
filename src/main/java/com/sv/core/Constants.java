@@ -30,6 +30,7 @@ public final class Constants {
     public static final String SLASH = "\\";
     public static final String F_SLASH = "/";
     public static final String COMMA = ",";
+    public static final String EQUAL = "=";
     public static final String STAR = "*";
     public static final String HASH = "#";
     public static final String COLON = ":";
