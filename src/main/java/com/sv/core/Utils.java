@@ -717,6 +717,12 @@ public class Utils {
                 {StandardOpenOption.CREATE, StandardOpenOption.WRITE});
     }
 
+    public static boolean writeFile(String path, List<String> lines, MyLogger logger) {
+        StringBuilder sb = new StringBuilder();
+        lines.forEach(l -> sb.append(l).append(System.lineSeparator()));
+        return writeFile(path, sb.toString(), logger);
+    }
+
     public static boolean writeFile(String path, String data, MyLogger logger, OpenOption... options) {
         boolean result = true;
         try {
