@@ -26,6 +26,11 @@ public class MyLogger {
         INFO, WARN, ERROR
     }
 
+    public void reset() {
+        logWriter = null;
+        logger = null;
+    }
+
     /**
      * Singleton instance with class name
      *
@@ -102,6 +107,7 @@ public class MyLogger {
         }
         logger.setDebug(debugEnabled);
         logger.setSimpleClassName(simpleClassName);
+        logger.info("Log file set as " + Utils.addBraces(logFilename));
         return logger;
     }
 
