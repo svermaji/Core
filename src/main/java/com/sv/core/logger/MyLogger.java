@@ -6,6 +6,8 @@ import com.sv.core.Utils;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.Optional;
 
 /**
  * File Logger
@@ -32,6 +34,18 @@ public class MyLogger {
      * @return File logger instance
      */
     public static MyLogger createLogger(Class<?> clazz, boolean debugEnabled) {
+        return createLogger(clazz, Constants.EMPTY, debugEnabled);
+    }
+
+    /**
+     * Singleton instance with class name
+     *
+     * @param clazz        Class object
+     * @param appendToName append string to log file name if not empty
+     * @param debugEnabled boolean if debug is enabled
+     * @return File logger instance
+     */
+    public static MyLogger createLogger(Class<?> clazz, String appendToName, boolean debugEnabled) {
         String className = clazz.getSimpleName();
         char[] carr = className.toCharArray();
         StringBuilder sb = new StringBuilder();
@@ -47,13 +61,19 @@ public class MyLogger {
                 sb.append(c);
             }
         }
+        if (Utils.hasValue(appendToName)) {
+            sb.append(Constants.DASH).append(appendToName.toLowerCase());
+        }
         sb.append(".log");
         return createLogger(sb.toString(), debugEnabled);
     }
 
-
     public static MyLogger createLogger(Class<?> clazz) {
         return createLogger(clazz, false);
+    }
+
+    public static MyLogger createLogger(Class<?> clazz, String appendToName) {
+        return createLogger(clazz, appendToName, false);
     }
 
     public static MyLogger createLogger(String logFilename) {
