@@ -534,12 +534,22 @@ public class Utils {
         return valToCheck;
     }
 
+    public static Class getClassForName(String className, MyLogger logger) {
+        Class clazz = null;
+        try {
+            clazz = Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            logger.error("Unable to get class name for " + addBraces(className));
+        }
+        return clazz;
+    }
+
     public static Object createObjFor(String className, Class[] clazzParams, Object[] params, MyLogger logger) {
         Object obj = null;
         try {
-            Class clazz = Class.forName(className);
+            Class clazz = getClassForName(className, logger);
             obj = clazz.getConstructor(clazzParams).newInstance(params);
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             logger.error("Unable to create instance for " + addBraces(className));
         }
         return obj;
