@@ -550,7 +550,9 @@ public class Utils {
             Class clazz = getClassForName(className, logger);
             obj = clazz.getConstructor(clazzParams).newInstance(params);
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
-            logger.error("Unable to create instance for " + addBraces(className));
+            logger.error("Unable to create instance for [" + className + "], class params are "
+                    + Arrays.deepToString(clazzParams)
+                    + ", params " + Arrays.deepToString(params) + "]");
         }
         return obj;
     }
