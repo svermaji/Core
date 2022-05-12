@@ -842,6 +842,13 @@ public class Utils {
         return ps;
     }
 
+    public static String removeDotFromEndOfPath(String ps) {
+        if (ps.endsWith(DOT)) {
+            ps = ps.substring(0, ps.length() - DOT.length());
+        }
+        return ps;
+    }
+
     public static Path getCurrentDirPath() {
         return FileSystems.getDefault().getPath("").toAbsolutePath();
     }
