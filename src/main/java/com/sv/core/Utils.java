@@ -832,6 +832,17 @@ public class Utils {
         return getCurrentDirPath().toFile();
     }
 
+    private Integer[] createIntArr(int from, int to) {
+        if (to >= from) {
+            Integer[] arr = new Integer[to - from];
+            for (int ix = 0, i = from; i <= to; i++, ix++) {
+                arr[ix] = i;
+            }
+            return arr;
+        }
+        return new Integer[0];
+    }
+
     public static String getCurrentDir() {
         String ps = getCurrentDirPath().toString();
         if (ps.contains(F_SLASH) && !ps.endsWith(F_SLASH)) {
