@@ -834,7 +834,7 @@ public class Utils {
 
     public static Integer[] createIntArr(int from, int to) {
         if (to >= from) {
-            Integer[] arr = new Integer[to - from];
+            Integer[] arr = new Integer[to - from + 1];
             for (int ix = 0, i = from; i <= to; i++, ix++) {
                 arr[ix] = i;
             }
