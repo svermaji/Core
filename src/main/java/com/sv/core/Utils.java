@@ -124,8 +124,29 @@ public class Utils {
         return FileSystems.getDefault().getPath(path);
     }
 
+    /**
+     * Check if val param is present in array.  Search is not case-sensitive
+     *
+     * @param arr String array
+     * @param val string to search
+     * @return boolean
+     */
     public static boolean isInArray(String[] arr, String val) {
         return Arrays.stream(arr).anyMatch(a -> a.equalsIgnoreCase(val));
+    }
+
+    public static boolean isInArrayMatchStart(String[] arr, String val) {
+        return Arrays.stream(arr).anyMatch(a -> a.toLowerCase().startsWith(val.toLowerCase()));
+    }
+
+    public static boolean isInArrayMatchStart(String[] arr, String val, boolean matchCase) {
+        return Arrays.stream(arr).anyMatch(a -> a.startsWith(val));
+    }
+    public static boolean isInArray(String[] arr, String val, boolean matchCase) {
+        if (matchCase) {
+            return Arrays.asList(arr).contains(val);
+        }
+        return isInArray(arr, val);
     }
 
     /**
@@ -549,7 +570,8 @@ public class Utils {
         try {
             Class clazz = getClassForName(className, logger);
             obj = clazz.getConstructor(clazzParams).newInstance(params);
-        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
+                 InvocationTargetException e) {
             logger.error("Unable to create instance for [" + className + "], class params are "
                     + Arrays.deepToString(clazzParams)
                     + ", params " + Arrays.deepToString(params) + "]");
