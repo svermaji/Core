@@ -132,15 +132,21 @@ public class Utils {
      * @return boolean
      */
     public static boolean isInArray(String[] arr, String val) {
-        return Arrays.stream(arr).anyMatch(a -> a.equalsIgnoreCase(val));
+        String finalVal = val.trim();
+        return Arrays.stream(arr).anyMatch(a -> a.equalsIgnoreCase(finalVal));
     }
 
     public static boolean isInArrayMatchStart(String[] arr, String val) {
-        return Arrays.stream(arr).anyMatch(a -> a.toLowerCase().startsWith(val.toLowerCase()));
+        String finalVal = val.trim().toLowerCase();
+        return Arrays.stream(arr).anyMatch(a -> a.toLowerCase().startsWith(finalVal));
     }
 
     public static boolean isInArrayMatchStart(String[] arr, String val, boolean matchCase) {
-        return Arrays.stream(arr).anyMatch(a -> a.startsWith(val));
+        String finalVal = val.trim();
+        if (matchCase) {
+            return Arrays.stream(arr).anyMatch(a -> a.startsWith(finalVal));
+        }
+        return isInArrayMatchStart(arr, val);
     }
     public static boolean isInArray(String[] arr, String val, boolean matchCase) {
         if (matchCase) {
@@ -531,8 +537,7 @@ public class Utils {
     }
 
     public static void main(String[] args) {
-        String loc = "screenshot" + formatForFilename(getFormattedDate()) + DOT;
-        System.out.println(loc);
+        System.out.println(isInArrayMatchStart(new String[]{"correct", "yes", "true"}, "correct"));
     }
 
     public static int getIdxInArr(String[] arr, String check) {
