@@ -560,6 +560,11 @@ public class Utils {
         return valToCheck;
     }
 
+    public static boolean isInRange(int min, int max, int valToCheck) {
+        ValueRange range = ValueRange.of(min, max);
+        return range.isValidIntValue(valToCheck);
+    }
+
     public static Class getClassForName(String className, MyLogger logger) {
         Class clazz = null;
         try {
