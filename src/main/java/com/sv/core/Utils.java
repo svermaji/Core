@@ -537,7 +537,9 @@ public class Utils {
     }
 
     public static void main(String[] args) {
-        System.out.println(isInArrayMatchStart(new String[]{"correct", "yes", "true"}, "correct"));
+        long t = System.currentTimeMillis();
+        sleep(2345);
+        System.out.println(getTimeDiffSecMilliStr(t));
     }
 
     public static int getIdxInArr(String[] arr, String check) {
@@ -594,7 +596,13 @@ public class Utils {
     }
 
     public static String getTimeDiffSecMilliStr(long time) {
-        return "[" + getTimeDiffSecMilli(time) + " sec]";
+        return getTimeDiffSecMilliStr(time, true);
+    }
+
+    public static String getTimeDiffSecMilliStr(long time, boolean addBraces) {
+        return (addBraces ? "[" : "") +
+                getTimeDiffSecMilli(time) + " sec" +
+                (addBraces ? "]" : "");
     }
 
     public static long getNowMillis() {
