@@ -148,6 +148,7 @@ public class Utils {
         }
         return isInArrayMatchStart(arr, val);
     }
+
     public static boolean isInArray(String[] arr, String val, boolean matchCase) {
         if (matchCase) {
             return Arrays.asList(arr).contains(val);
@@ -591,24 +592,57 @@ public class Utils {
         return obj;
     }
 
+    /**
+     * Calculate time difference up to seconds and
+     * return string in format like "[2 sec]"
+     *
+     * @param time as long
+     * @return string as in example
+     */
     public static String getTimeDiffSecStr(long time) {
         return "[" + getTimeDiffSec(time) + " sec]";
     }
 
+    /**
+     * Calculate time difference up to milliseconds and
+     * return string in format like "[2.345 sec]"
+     *
+     * @param time as long
+     * @return string as in example
+     */
     public static String getTimeDiffSecMilliStr(long time) {
         return getTimeDiffSecMilliStr(time, true);
     }
 
+    /**
+     * Calculate time difference up to milliseconds and
+     * return string in format like "[2.345 sec]" or "2.345 sec"
+     *
+     * @param time      as long
+     * @param addBraces if to add long braces
+     * @return string as in example
+     */
     public static String getTimeDiffSecMilliStr(long time, boolean addBraces) {
         return (addBraces ? "[" : "") +
                 getTimeDiffSecMilli(time) + " sec" +
                 (addBraces ? "]" : "");
     }
 
+    /**
+     * Return current milliseconds as long
+     *
+     * @return long
+     */
     public static long getNowMillis() {
         return System.currentTimeMillis();
     }
 
+    /**
+     * Calculate time difference up to minutes
+     *
+     * @param millis      as long
+     * @return diff in min
+     */
     public static long getTimeDiffMin(long millis) {
         return TimeUnit.MILLISECONDS.toMinutes(getTimeDiff(millis));
     }
