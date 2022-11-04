@@ -519,9 +519,13 @@ public class Utils {
         return (val >= min && val <= max) ? val : defaultVal;
     }
 
+    public static long convertToLong(String s) {
+        return convertToLong(s, 0);
+    }
+
     public static long convertToLong(String s, long defaultVal) {
         try {
-            return Integer.parseInt(s);
+            return Long.parseLong(s);
         } catch (NumberFormatException e) {
             // no action
         }
