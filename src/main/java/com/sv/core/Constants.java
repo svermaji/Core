@@ -22,6 +22,7 @@ public final class Constants {
     public static final long MIN_1 = TimeUnit.MINUTES.toMillis(ONE);
     public static final long MIN_10 = MIN_1 * TEN;
 
+    public static final String NULL_STR = "null";
     public static final String FAILED = "Failed - ";
     public static final String CANCELLED = "Cancelled - ";
     public static final String EMPTY = "";

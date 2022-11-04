@@ -120,6 +120,16 @@ public class Utils {
         return ((item != null) && (item.length() > 0));
     }
 
+    /**
+     * Return true if param "null"
+     *
+     * @param item string to be checked
+     * @return boolean status of operation
+     */
+    public static boolean isNullStr(String item) {
+        return item != null && item.equalsIgnoreCase(NULL_STR);
+    }
+
     public static Path createPath(String path) {
         return FileSystems.getDefault().getPath(path);
     }
