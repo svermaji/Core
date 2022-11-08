@@ -859,8 +859,9 @@ public class Utils {
     }
 
     public static String getTimeDiffSecMilli(long millis) {
-        long sec = TimeUnit.MILLISECONDS.toSeconds(getTimeDiff(millis));
-        long remain = millis - TimeUnit.SECONDS.toMillis(sec);
+        long diff = getTimeDiff(millis);
+        long sec = TimeUnit.MILLISECONDS.toSeconds(diff);
+        long remain = diff - TimeUnit.SECONDS.toMillis(sec);
         return String.format("%.3f", Double.parseDouble(sec + DOT + remain));
     }
 
