@@ -382,11 +382,31 @@ public class Utils {
         return NumberFormat.getNumberInstance().format(n);
     }
 
+    /**
+     * Returns in format MM:SS
+     *
+     * @param sec seconds
+     * @return Formatted string
+     */
     public static String formatTime(long sec) {
         long min = TimeUnit.SECONDS.toMinutes(sec);
         long rsec = sec - TimeUnit.MINUTES.toSeconds(min);
         String s = min + COLON;
         return (rsec < 10) ? s + "0" + rsec : s + rsec;
+    }
+
+    /**
+     * Returns in format MM min SS sec
+     * Formatted string will not include min if MM is 0
+     *
+     * @param sec seconds
+     * @return Formatted string
+     */
+    public static String formatTimeWithUnits(long sec) {
+        long min = TimeUnit.SECONDS.toMinutes(sec);
+        long rsec = sec - TimeUnit.MINUTES.toSeconds(min);
+        String s = min > 0 ? min + "min " : "";
+        return ((rsec < 10) ? s + "0" + rsec : s + rsec) + "sec";
     }
 
     public static String formatTimeHMS(long sec) {
@@ -654,7 +674,7 @@ public class Utils {
     /**
      * Calculate time difference up to minutes
      *
-     * @param millis      as long
+     * @param millis as long
      * @return diff in min
      */
     public static long getTimeDiffMin(long millis) {
